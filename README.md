@@ -1,13 +1,23 @@
-# Installation
+# Webpage
+
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
+## Installation
 
 create openapi typescript-angular sdk
 
 ```shell
-sh openapi.sh
+sh bin/openapi.sh
 ```
 
-install ui + api
+install api
 
 ```shell
-cd api && npm i && cd ../client && npm i && cd ..
+cd api && npm i
+```
+
+install client
+
+```shell
+cd client && npm i
 ```
