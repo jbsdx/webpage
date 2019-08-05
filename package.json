@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "create:sdk": "sh bin/openapi.sh",
-    "commit": "node_modules/.bin/git-cz"
+    "commit": "./node_modules/.bin/git-cz"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,11 @@
     "@openapitools/openapi-generator-cli": "0.0.16-4.0.3",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
-    "openapi-generator": "^0.1.29"
+    "openapi-generator": "^0.1.29",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-eslint-plugin": "^2.1.0",
+    "eslint-plugin-mocha": "^6.0.0"
   },
   "config": {
     "commitizen": {
