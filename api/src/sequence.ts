@@ -1,6 +1,7 @@
 import {inject} from '@loopback/context';
 import {
   FindRoute,
+  HttpErrors,
   InvokeMethod,
   ParseParams,
   Reject,
@@ -9,12 +10,15 @@ import {
   Send,
   SequenceHandler,
 } from '@loopback/rest';
+import {AuthenticateFn, AuthenticationBindings} from 'loopback4-authentication';
 import {
-  AuthenticateFn,
-  AuthenticationBindings,
-  AUTHENTICATION_STRATEGY_NOT_FOUND,
-  USER_PROFILE_NOT_FOUND,
-} from '@loopback/authentication';
+  AuthorizationBindings,
+  AuthorizeErrorKeys,
+  AuthorizeFn,
+} from 'loopback4-authorization';
+
+import {AuthClient} from './models';
+import {AuthUser} from './modules/authentication';
 
 const SequenceActions = RestBindings.SequenceActions;
 
@@ -25,31 +29,36 @@ export class MySequence implements SequenceHandler {
     @inject(SequenceActions.INVOKE_METHOD) protected invoke: InvokeMethod,
     @inject(SequenceActions.SEND) public send: Send,
     @inject(SequenceActions.REJECT) public reject: Reject,
-    @inject(AuthenticationBindings.AUTH_ACTION)
-    protected authenticateRequest: AuthenticateFn,
+    @inject(AuthenticationBindings.USER_AUTH_ACTION)
+    protected authenticateRequest: AuthenticateFn<AuthUser>,
+    @inject(AuthenticationBindings.CLIENT_AUTH_ACTION)
+    protected authenticateRequestClient: AuthenticateFn<AuthClient>,
+    @inject(AuthorizationBindings.AUTHORIZE_ACTION)
+    protected checkAuthorisation: AuthorizeFn,
   ) {}
 
   async handle(context: RequestContext) {
     try {
       const {request, response} = context;
+
       const route = this.findRoute(request);
-
-      //call authentication action
-      await this.authenticateRequest(request);
-
-      // Authentication successful, proceed to invoke controller
       const args = await this.parseParams(request, route);
+      request.body = args[args.length - 1];
+      await this.authenticateRequestClient(request);
+      const authUser: AuthUser = await this.authenticateRequest(
+        request,
+        response,
+      );
+      const isAccessAllowed: boolean = await this.checkAuthorisation(
+        authUser && authUser.permissions,
+        request,
+      );
+      if (!isAccessAllowed) {
+        throw new HttpErrors.Forbidden(AuthorizeErrorKeys.NotAllowedAccess);
+      }
       const result = await this.invoke(route, args);
       this.send(response, result);
     } catch (err) {
-      
-      if (
-        err.code === AUTHENTICATION_STRATEGY_NOT_FOUND ||
-        err.code === USER_PROFILE_NOT_FOUND
-      ) {
-        Object.assign(err, {statusCode: 401 /* Unauthorized */});
-      }
-
       this.reject(context, err);
     }
   }

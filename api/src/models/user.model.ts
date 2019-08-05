@@ -1,46 +1,74 @@
-import {Entity, model, property} from '@loopback/repository';
+import {hasOne, model, property} from '@loopback/repository';
+import {IAuthUser} from 'loopback4-authentication';
 
-@model({settings: {strict: false}})
-export class User extends Entity {
+import {
+  UserCredentials,
+  UserCredentialsWithRelations,
+} from './user-credentials.model';
+import {UserModifiableEntity} from './user-modifiable-entity.model';
+
+@model({
+  name: 'users',
+})
+export class User extends UserModifiableEntity implements IAuthUser {
+  @property({
+    type: 'number',
+    id: true,
+  })
+  id?: number;
+
   @property({
     type: 'string',
-    id: true
+    required: true,
+    name: 'first_name',
   })
-  id: string;
+  firstName: string;
+
+  @property({
+    type: 'string',
+    name: 'last_name',
+  })
+  lastName: string;
+
+  @property({
+    type: 'string',
+    name: 'middle_name',
+  })
+  middleName?: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  email: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  password: string;
+  username: string;
 
   @property({
     type: 'string',
   })
-  firstName?: string;
+  email?: string;
 
   @property({
     type: 'string',
   })
-  lastName?: string;
+  phone?: string;
 
   @property({
-    type: 'string',
-    required: true,
+    type: 'number',
+    name: 'default_tenant',
   })
-  userName: string;
+  defaultTenant: number;
 
-  // Define well-known properties here
+  @property({
+    type: 'date',
+    name: 'last_login',
+    postgresql: {
+      column: 'last_login',
+    },
+  })
+  lastLogin?: string;
 
-  // Indexer property to allow additional data
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [prop: string]: any;
+  @hasOne(() => UserCredentials, {keyTo: 'user_id'})
+  credentials: UserCredentials;
 
   constructor(data?: Partial<User>) {
     super(data);
@@ -48,7 +76,7 @@ export class User extends Entity {
 }
 
 export interface UserRelations {
-  // describe navigational properties here
+  credentials: UserCredentialsWithRelations;
 }
 
 export type UserWithRelations = User & UserRelations;

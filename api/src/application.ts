@@ -1,5 +1,5 @@
 import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig, BindingKey} from '@loopback/core';
+import {ApplicationConfig} from '@loopback/core';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
@@ -7,24 +7,17 @@ import {
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
-import * as path from 'path';
-import {MySequence} from './sequence';
+import * as dotenv from 'dotenv';
+import * as dotenvExt from 'dotenv-extended';
+import {AuthenticationComponent, Strategies} from 'loopback4-authentication';
 import {
-  AuthenticationComponent, registerAuthenticationStrategy
-} from '@loopback/authentication';
-import { JWTAuthenticationStrategy } from './authentication/jwt-strategy';
-import { TokenServiceBindings, TokenServiceConstants, PasswordHasherBindings, UserServiceBindings } from './keys';
-import { JWTService } from './services/jwt-service';
-import { MyUserService } from './services/user-service';
-import { BcryptHasher } from './services/hash.password.bcryptjs';
+  AuthorizationBindings,
+  AuthorizationComponent,
+} from 'loopback4-authorization';
+import * as path from 'path';
 
-export interface PackageInfo {
-  name: string;
-  version: string;
-  description: string;
-}
-export const PackageKey = BindingKey.create<PackageInfo>('application.package');
-const pkg: PackageInfo = require('../package.json');
+import {BearerTokenVerifyProvider} from './modules/authentication';
+import {MySequence} from './sequence';
 
 export class WebpageApiApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -32,13 +25,13 @@ export class WebpageApiApplication extends BootMixin(
   constructor(options: ApplicationConfig = {}) {
     super(options);
 
-    this.setUpBindings();
-
     // Bind authentication component related elements
     this.component(AuthenticationComponent);
 
-    registerAuthenticationStrategy(this, JWTAuthenticationStrategy);
-    
+    this.bind(Strategies.Passport.BEARER_TOKEN_VERIFIER).toProvider(
+      BearerTokenVerifyProvider,
+    );
+
     // Set up the custom sequence
     this.sequence(MySequence);
 
@@ -46,6 +39,12 @@ export class WebpageApiApplication extends BootMixin(
     this.static('/', path.join(__dirname, '../public'));
 
     this.component(RestExplorerComponent);
+
+    // Add authorization component
+    this.bind(AuthorizationBindings.CONFIG).to({
+      allowAlwaysPaths: ['/explorer'],
+    });
+    this.component(AuthorizationComponent);
 
     // Customize @loopback/rest-explorer configuration here
     this.bind(RestExplorerBindings.CONFIG).to({
@@ -57,33 +56,20 @@ export class WebpageApiApplication extends BootMixin(
     this.bootOptions = {
       controllers: {
         // Customize ControllerBooter Conventions here
-        dirs: ['controllers'],
+        dirs: ['controllers', 'modules'],
         extensions: ['.controller.js'],
         nested: true,
       },
+      repositories: {
+        dirs: ['repositories'],
+        extensions: ['.repository.js'],
+        nested: true,
+      },
     };
-  }
-
-  setUpBindings(): void {
-
-    // Bind package.json to the application context
-    this.bind(PackageKey).to(pkg);
-
-    this.bind(TokenServiceBindings.TOKEN_SECRET).to(
-      TokenServiceConstants.TOKEN_SECRET_VALUE,
-    );
-
-    this.bind(TokenServiceBindings.TOKEN_EXPIRES_IN).to(
-      TokenServiceConstants.TOKEN_EXPIRES_IN_VALUE,
-    );
-
-    this.bind(TokenServiceBindings.TOKEN_SERVICE).toClass(JWTService);
-
-    // // Bind bcrypt hash services
-    this.bind(PasswordHasherBindings.ROUNDS).to(10);
-    this.bind(PasswordHasherBindings.PASSWORD_HASHER).toClass(BcryptHasher);
-
-    this.bind(UserServiceBindings.USER_SERVICE).toClass(MyUserService);
-    
+    dotenv.config();
+    dotenvExt.load({
+      schema: '.env.example',
+      errorOnMissing: false,
+    });
   }
 }
