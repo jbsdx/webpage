@@ -5,7 +5,7 @@ import {User} from './models';
 import {Credentials} from './repositories';
 
 export namespace TokenServiceConstants {
-  export const TOKEN_SECRET_VALUE = 'myjwts3cr3t';
+  export const TOKEN_SECRET_VALUE = 'dk8ADK!ddlkvn4832kdADkfd';
   export const TOKEN_EXPIRES_IN_VALUE = '600';
 }
 
