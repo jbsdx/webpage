@@ -1,0 +1,30 @@
+{
+  "name": "webpage",
+  "version": "0.0.0",
+  "description": "webpage api+client",
+  "main": "index.js",
+  "scripts": {
+    "create:sdk": "sh bin/openapi.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jbsdx/webpage.git"
+  },
+  "author": "jbsdx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jbsdx/webpage/issues"
+  },
+  "homepage": "https://github.com/jbsdx/webpage#readme",
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "0.0.16-4.0.3",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "openapi-generator": "^0.1.29"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
