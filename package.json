@@ -4,7 +4,8 @@
   "description": "webpage api+client",
   "main": "index.js",
   "scripts": {
-    "create:sdk": "sh bin/openapi.sh"
+    "create:sdk": "sh bin/openapi.sh",
+    "commit": "node_modules/.bin/git-cz"
   },
   "repository": {
     "type": "git",
