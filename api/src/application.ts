@@ -16,7 +16,13 @@ import {
 } from 'loopback4-authorization';
 import * as path from 'path';
 
-import {BearerTokenVerifyProvider} from './modules/authentication';
+import {
+  BearerTokenVerifyProvider,
+  ClientPasswordVerifyProvider,
+  LocalPasswordVerifyProvider,
+  ResourceOwnerVerifyProvider,
+  GoogleOauth2VerifyProvider,
+} from './modules/authentication';
 import {MySequence} from './sequence';
 
 export class WebpageApiApplication extends BootMixin(
@@ -25,31 +31,43 @@ export class WebpageApiApplication extends BootMixin(
   constructor(options: ApplicationConfig = {}) {
     super(options);
 
-    // Bind authentication component related elements
-    this.component(AuthenticationComponent);
-
-    this.bind(Strategies.Passport.BEARER_TOKEN_VERIFIER).toProvider(
-      BearerTokenVerifyProvider,
-    );
-
     // Set up the custom sequence
     this.sequence(MySequence);
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
 
+    // Customize @loopback/rest-explorer configuration here
+    this.bind(RestExplorerBindings.CONFIG).to({
+      path: '/explorer',
+    });
     this.component(RestExplorerComponent);
+
+    // Bind authentication component related elements
+    this.component(AuthenticationComponent);
+
+    this.bind(Strategies.Passport.OAUTH2_CLIENT_PASSWORD_VERIFIER).toProvider(
+      ClientPasswordVerifyProvider,
+    );
+    this.bind(Strategies.Passport.LOCAL_PASSWORD_VERIFIER).toProvider(
+      LocalPasswordVerifyProvider,
+    );
+    this.bind(Strategies.Passport.BEARER_TOKEN_VERIFIER).toProvider(
+      BearerTokenVerifyProvider,
+    );
+    this.bind(Strategies.Passport.RESOURCE_OWNER_PASSWORD_VERIFIER).toProvider(
+      ResourceOwnerVerifyProvider,
+    );
+    this.bind(Strategies.Passport.GOOGLE_OAUTH2_VERIFIER).toProvider(
+      GoogleOauth2VerifyProvider,
+    );
 
     // Add authorization component
     this.bind(AuthorizationBindings.CONFIG).to({
       allowAlwaysPaths: ['/explorer'],
     });
-    this.component(AuthorizationComponent);
 
-    // Customize @loopback/rest-explorer configuration here
-    this.bind(RestExplorerBindings.CONFIG).to({
-      path: '/explorer',
-    });
+    this.component(AuthorizationComponent);
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
@@ -67,9 +85,12 @@ export class WebpageApiApplication extends BootMixin(
       },
     };
     dotenv.config();
+    // TODO: add stage, dev, prod environment files
     dotenvExt.load({
-      schema: '.env.example',
+      schema: '.env',
       errorOnMissing: false,
     });
+
+    console.log('ENV', process.env['NODE_ENV']);
   }
 }

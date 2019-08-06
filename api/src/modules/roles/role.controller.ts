@@ -107,7 +107,7 @@ export class RoleController {
       },
     },
   })
-  async findById(@param.path.number('id') id: number): Promise<Role> {
+  async findById(@param.path.number('id') id: string): Promise<Role> {
     return this.roleRepository.findById(id);
   }
 
@@ -121,7 +121,7 @@ export class RoleController {
     },
   })
   async updateById(
-    @param.path.number('id') id: number,
+    @param.path.number('id') id: string,
     @requestBody() role: Role,
   ): Promise<void> {
     await this.roleRepository.updateById(id, role);
@@ -137,7 +137,7 @@ export class RoleController {
     },
   })
   async replaceById(
-    @param.path.number('id') id: number,
+    @param.path.number('id') id: string,
     @requestBody() role: Role,
   ): Promise<void> {
     await this.roleRepository.replaceById(id, role);
@@ -152,7 +152,7 @@ export class RoleController {
       },
     },
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
+  async deleteById(@param.path.number('id') id: string): Promise<void> {
     await this.roleRepository.deleteById(id);
   }
 }

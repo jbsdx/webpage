@@ -15,6 +15,7 @@ export class LocalPasswordVerifyProvider
 
   value(): VerifyFunction.LocalPasswordFn {
     return async (username, password) => {
+      console.log('LOCAL', username, password);
       const user: AuthUser = new AuthUser(
         await this.userRepository.verifyPassword(username, password),
       );

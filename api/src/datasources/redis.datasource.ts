@@ -9,6 +9,14 @@ export class RedisDataSource extends juggler.DataSource {
     @inject('datasources.config.redis', {optional: true})
     dsConfig: object = config,
   ) {
+    // Override data source config from environment variables
+    Object.assign(dsConfig, {
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
+      password: process.env.REDIS_PASSWORD,
+      database: process.env.REDIS_DATABASE,
+      url: process.env.REDIS_URL,
+    });
     super(dsConfig);
   }
 }

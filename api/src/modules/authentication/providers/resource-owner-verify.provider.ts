@@ -22,10 +22,10 @@ export class ResourceOwnerVerifyProvider
       }
       const client = await this.authClientRepository.findOne({
         where: {
-          clientId,
+          clientId: clientId,
         },
       });
-      if (!client || client.userIds.indexOf(user.id || 0) < 0) {
+      if (!client || client.userIds.indexOf(user.id || '0') < 0) {
         throw new HttpErrors.Unauthorized(AuthErrorKeys.ClientInvalid);
       } else if (!client.clientSecret || client.clientSecret !== clientSecret) {
         throw new HttpErrors.Unauthorized(

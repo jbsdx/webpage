@@ -9,10 +9,10 @@ export class RefreshToken extends Entity {
   clientId: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
   })
-  userId: number;
+  userId: string;
 
   @property({
     type: 'string',

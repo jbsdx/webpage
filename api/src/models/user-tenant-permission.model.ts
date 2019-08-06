@@ -10,10 +10,10 @@ import {UserPermission} from 'loopback4-authorization';
 export class UserTenantPermission extends UserModifiableEntity
   implements UserPermission<string> {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
   })
-  id?: number;
+  id?: string;
 
   @belongsTo(
     () => UserTenant,
@@ -23,7 +23,7 @@ export class UserTenantPermission extends UserModifiableEntity
       required: true,
     },
   )
-  userTenantId: number;
+  userTenantId: string;
 
   @property({
     type: 'string',

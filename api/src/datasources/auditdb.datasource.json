@@ -1,0 +1,10 @@
+{
+  "name": "auditdb",
+  "connector": "postgresql",
+  "url": "postgres://postgres@localhost:5432/logs",
+  "host": "",
+  "port": 0,
+  "user": "",
+  "password": "",
+  "database": ""
+}

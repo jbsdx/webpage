@@ -109,7 +109,7 @@ export class TenantController {
       },
     },
   })
-  async findById(@param.path.number('id') id: number): Promise<Tenant> {
+  async findById(@param.path.number('id') id: string): Promise<Tenant> {
     return this.tenantRepository.findById(id);
   }
 
@@ -123,7 +123,7 @@ export class TenantController {
     },
   })
   async updateById(
-    @param.path.number('id') id: number,
+    @param.path.number('id') id: string,
     @requestBody() tenant: Tenant,
   ): Promise<void> {
     await this.tenantRepository.updateById(id, tenant);
@@ -139,7 +139,7 @@ export class TenantController {
     },
   })
   async replaceById(
-    @param.path.number('id') id: number,
+    @param.path.number('id') id: string,
     @requestBody() tenant: Tenant,
   ): Promise<void> {
     await this.tenantRepository.replaceById(id, tenant);
@@ -154,7 +154,7 @@ export class TenantController {
       },
     },
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
+  async deleteById(@param.path.number('id') id: string): Promise<void> {
     await this.tenantRepository.deleteById(id);
   }
 }

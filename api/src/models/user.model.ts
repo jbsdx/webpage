@@ -8,31 +8,31 @@ import {
 import {UserModifiableEntity} from './user-modifiable-entity.model';
 
 @model({
-  name: 'users',
+  name: 'User',
 })
 export class User extends UserModifiableEntity implements IAuthUser {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
   })
-  id?: number;
+  id?: string;
 
   @property({
     type: 'string',
     required: true,
-    name: 'first_name',
+    name: 'firstName',
   })
   firstName: string;
 
   @property({
     type: 'string',
-    name: 'last_name',
+    name: 'lastName',
   })
   lastName: string;
 
   @property({
     type: 'string',
-    name: 'middle_name',
+    name: 'middleName',
   })
   middleName?: string;
 
@@ -53,21 +53,18 @@ export class User extends UserModifiableEntity implements IAuthUser {
   phone?: string;
 
   @property({
-    type: 'number',
-    name: 'default_tenant',
+    type: 'string',
+    name: 'defaultTenant',
   })
-  defaultTenant: number;
+  defaultTenant: string;
 
   @property({
     type: 'date',
-    name: 'last_login',
-    postgresql: {
-      column: 'last_login',
-    },
+    name: 'lastLogin',
   })
   lastLogin?: string;
 
-  @hasOne(() => UserCredentials, {keyTo: 'user_id'})
+  @hasOne(() => UserCredentials, {keyTo: 'userId'})
   credentials: UserCredentials;
 
   constructor(data?: Partial<User>) {

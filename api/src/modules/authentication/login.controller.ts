@@ -83,6 +83,7 @@ export class LoginController {
   ): Promise<{
     code: string;
   }> {
+    console.log('LOGIN', this.client, this.user);
     if (!this.client || !this.user) {
       throw new HttpErrors.Unauthorized(AuthErrorKeys.ClientInvalid);
     } else if (!req.client_secret) {
@@ -91,7 +92,8 @@ export class LoginController {
     try {
       const codePayload: ClientAuthCode<User> = {
         clientId: req.client_id,
-        userId: this.user.id,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        userId: this.user.id as any,
       };
       const token = jwt.sign(codePayload, this.client.secret, {
         expiresIn: this.client.authCodeExpiration,
@@ -224,7 +226,8 @@ export class LoginController {
       throw new HttpErrors.Unauthorized(AuthErrorKeys.ClientInvalid);
     }
     return this.createJWT(
-      {clientId: refreshPayload.clientId, userId: refreshPayload.userId},
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      {clientId: refreshPayload.clientId, userId: refreshPayload.userId as any},
       authClient,
     );
   }
@@ -346,7 +349,7 @@ export class LoginController {
       if (payload.user) {
         user = payload.user;
       } else if (payload.userId) {
-        user = await this.userRepo.findById(payload.userId);
+        user = await this.userRepo.findById(payload.userId.toString());
       }
       if (!user) {
         throw new HttpErrors.Unauthorized(

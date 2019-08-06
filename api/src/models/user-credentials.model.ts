@@ -3,41 +3,41 @@ import {User, UserWithRelations} from './user.model';
 import {BaseEntity} from '.';
 
 @model({
-  name: 'user_credentials',
+  name: 'UserCredentials',
 })
 export class UserCredentials extends BaseEntity {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
   })
-  id?: number;
+  id?: string;
 
   @belongsTo(
     () => User,
-    {keyFrom: 'user_id', name: 'user_id'},
+    {keyFrom: 'userId', name: 'userId'},
     {
-      name: 'user_id',
+      name: 'userId',
       required: true,
     },
   )
-  userId: number;
+  userId: string;
 
   @property({
     type: 'string',
     required: true,
-    name: 'auth_provider',
+    name: 'authProvider',
   })
   authProvider: string;
 
   @property({
     type: 'string',
-    name: 'auth_id',
+    name: 'authId',
   })
   authId?: string;
 
   @property({
     type: 'string',
-    name: 'auth_token',
+    name: 'authToken',
   })
   authToken?: string;
 

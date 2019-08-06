@@ -4,14 +4,14 @@ import {RoleType} from '../modules/roles/role.enum';
 import {BaseEntity} from './base-entity.model';
 
 @model({
-  name: 'roles',
+  name: 'Role',
 })
 export class Role extends BaseEntity {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
   })
-  id?: number;
+  id?: string;
 
   @property({
     type: 'string',

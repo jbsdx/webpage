@@ -4,14 +4,14 @@ import {UserModifiableEntity} from './user-modifiable-entity.model';
 import {TenantType} from '../modules/user-tenants/tenant-type.enum';
 
 @model({
-  name: 'tenants',
+  name: 'Tenant',
 })
 export class Tenant extends UserModifiableEntity {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
   })
-  id?: number;
+  id?: string;
 
   @property({
     type: 'string',

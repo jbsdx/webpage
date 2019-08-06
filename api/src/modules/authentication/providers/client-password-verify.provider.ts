@@ -15,8 +15,8 @@ export class ClientPasswordVerifyProvider
     return async (clientId, clientSecret) => {
       return this.authClientRepository.findOne({
         where: {
-          clientId,
-          clientSecret,
+          clientId: clientId,
+          clientSecret: clientSecret,
         },
       });
     };

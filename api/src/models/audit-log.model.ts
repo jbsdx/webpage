@@ -1,14 +1,14 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  name: 'audit_logs',
+  name: 'AuditLog',
 })
 export class AuditLog extends Entity {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
   })
-  id?: number;
+  id?: string;
 
   @property({
     type: 'string',

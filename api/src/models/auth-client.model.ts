@@ -4,26 +4,26 @@ import {IAuthClient} from 'loopback4-authentication';
 import {BaseEntity} from './base-entity.model';
 
 @model({
-  name: 'auth_clients',
+  name: 'AuthClient',
 })
 export class AuthClient extends BaseEntity implements IAuthClient {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
   })
-  id?: number;
+  id?: string;
 
   @property({
     type: 'string',
     required: true,
-    name: 'client_id',
+    name: 'clientId',
   })
   clientId: string;
 
   @property({
     type: 'string',
     required: true,
-    name: 'client_secret',
+    name: 'clientSecret',
   })
   clientSecret: string;
 
@@ -35,35 +35,35 @@ export class AuthClient extends BaseEntity implements IAuthClient {
 
   @property({
     type: 'string',
-    name: 'redirect_url',
+    name: 'redirectUrl',
   })
   redirectUrl?: string;
 
   @property({
     type: 'array',
     itemType: 'number',
-    name: 'user_ids',
+    name: 'userIds',
   })
-  userIds: number[];
+  userIds: string[];
 
   @property({
     type: 'number',
     required: true,
-    name: 'access_token_expiration',
+    name: 'accessTokenExpiration',
   })
   accessTokenExpiration: number;
 
   @property({
     type: 'number',
     required: true,
-    name: 'refresh_token_expiration',
+    name: 'refreshTokenExpiration',
   })
   refreshTokenExpiration: number;
 
   @property({
     type: 'number',
     required: true,
-    name: 'auth_code_expiration',
+    name: 'authCodeExpiration',
   })
   authCodeExpiration: number;
 

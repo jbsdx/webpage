@@ -5,44 +5,44 @@ import {User, UserWithRelations} from './user.model';
 import {Role, RoleWithRelations} from './role.model';
 
 @model({
-  name: 'user_tenants',
+  name: 'UserTenant',
 })
 export class UserTenant extends BaseEntity {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
   })
-  id?: number;
+  id?: string;
 
   @belongsTo(
     () => User,
-    {keyFrom: 'user_id', name: 'user_id'},
+    {keyFrom: 'userId', name: 'userId'},
     {
-      name: 'user_id',
+      name: 'userId',
       required: true,
     },
   )
-  userId: number;
+  userId: string;
 
   @belongsTo(
     () => Tenant,
-    {keyFrom: 'tenant_id', name: 'tenant_id'},
+    {keyFrom: 'tenantId', name: 'tenantId'},
     {
-      name: 'tenant_id',
+      name: 'tenantId',
       required: true,
     },
   )
-  tenantId: number;
+  tenantId: string;
 
   @belongsTo(
     () => Role,
-    {keyFrom: 'role_id', name: 'role_id'},
+    {keyFrom: 'roleId', name: 'roleId'},
     {
-      name: 'role_id',
+      name: 'roleId',
       required: true,
     },
   )
-  roleId: number;
+  roleId: string;
 
   @property({
     type: 'string',

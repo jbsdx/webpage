@@ -60,8 +60,18 @@ export class UserRepository extends DefaultUserModifyCrudRepository<
   }
 
   async verifyPassword(username: string, password: string): Promise<User> {
-    const user = await super.findOne({where: {username}});
+    /*
+    super
+      .find()
+      .then(err => console.log('verify', username, password, err))
+      .catch(err => console.log(err));
+      */
+    console.log(super.modelClass.toString(), super.entityClass);
+    // const us = await super.getCurrentUser();
+
+    const user = await super.findOne({where: {username: username}});
     const creds = user && (await this.credentials(user.id).get());
+    console.log(user, creds);
     if (!user || user.deleted || !creds || !creds.password) {
       throw new HttpErrors.Unauthorized(AuthenticateErrorKeys.UserDoesNotExist);
     } else if (!(await compare(password, creds.password))) {
@@ -79,7 +89,7 @@ export class UserRepository extends DefaultUserModifyCrudRepository<
     password: string,
     newPassword: string,
   ): Promise<User> {
-    const user = await super.findOne({where: {username}});
+    const user = await super.findOne({where: {username: username}});
     const creds = user && (await this.credentials(user.id).get());
     if (!user || user.deleted || !creds || !creds.password) {
       throw new HttpErrors.Unauthorized(AuthenticateErrorKeys.UserDoesNotExist);

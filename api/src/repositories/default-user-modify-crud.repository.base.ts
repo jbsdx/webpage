@@ -39,8 +39,8 @@ export abstract class DefaultUserModifyCrudRepository<
       throw new HttpErrors.Forbidden(AuthErrorKeys.InvalidCredentials);
     }
     entities.forEach(entity => {
-      entity.createdBy = currentUser ? currentUser.id : 0;
-      entity.modifiedBy = currentUser ? currentUser.id : 0;
+      entity.createdBy = currentUser ? currentUser.id : '0';
+      entity.modifiedBy = currentUser ? currentUser.id : '0';
     });
     return super.createAll(entities, options);
   }
