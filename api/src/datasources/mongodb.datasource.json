@@ -2,10 +2,10 @@
   "name": "mongodb",
   "connector": "mongodb",
   "url": "mongodb://localhost:27017/webpage",
-  "host": "localhost",
-  "port": 27017,
+  "host": "",
+  "port": 0,
   "user": "",
   "password": "",
-  "database": "webpage",
+  "database": "",
   "useNewUrlParser": true
 }

@@ -1,10 +1,8 @@
 import {model, property, belongsTo} from '@loopback/repository';
-import {User, UserWithRelations} from './user.model';
-import {BaseEntity} from '.';
+import {User} from './user.model';
+import {BaseEntity} from './base-entity.model';
 
-@model({
-  name: 'UserCredentials',
-})
+@model({settings: {strict: false}})
 export class UserCredentials extends BaseEntity {
   @property({
     type: 'string',
@@ -12,39 +10,14 @@ export class UserCredentials extends BaseEntity {
   })
   id?: string;
 
-  @belongsTo(
-    () => User,
-    {keyFrom: 'userId', name: 'userId'},
-    {
-      name: 'userId',
-      required: true,
-    },
-  )
+  @belongsTo(() => User)
   userId: string;
 
   @property({
     type: 'string',
     required: true,
-    name: 'authProvider',
   })
-  authProvider: string;
-
-  @property({
-    type: 'string',
-    name: 'authId',
-  })
-  authId?: string;
-
-  @property({
-    type: 'string',
-    name: 'authToken',
-  })
-  authToken?: string;
-
-  @property({
-    type: 'string',
-  })
-  password?: string;
+  password: string;
 
   constructor(data?: Partial<UserCredentials>) {
     super(data);
@@ -52,7 +25,7 @@ export class UserCredentials extends BaseEntity {
 }
 
 export interface UserCredentialsRelations {
-  user: UserWithRelations;
+  // describe navigational properties here
 }
 
 export type UserCredentialsWithRelations = UserCredentials &

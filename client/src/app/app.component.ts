@@ -1,22 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { NewsControllerService } from 'src/sdk';
+import { Component, OnInit } from "@angular/core";
+import { NewsControllerService } from "src/sdk";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  title = 'client';
+  title = "client";
 
-  constructor(readonly newsApi: NewsControllerService) {
-    
-
-  }
+  constructor(readonly newsApi: NewsControllerService) {}
 
   async ngOnInit() {
     const count = await this.newsApi.newsControllerCount().toPromise();
-    console.log('COUNT', count);
+    console.log("COUNT", count);
   }
-
 }

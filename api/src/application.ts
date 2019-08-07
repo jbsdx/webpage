@@ -7,25 +7,19 @@ import {
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
+import * as path from 'path';
+import {MySequence} from './sequence';
+import {AuthenticationBindings} from '@loopback/authentication';
+import {
+  MyAuthMetadataProvider,
+  MyAuthBindings,
+  MyAuthAuthenticationStrategyProvider,
+  MyAuthActionProvider,
+} from './modules/authorization/auth';
 import * as dotenv from 'dotenv';
 import * as dotenvExt from 'dotenv-extended';
-import {AuthenticationComponent, Strategies} from 'loopback4-authentication';
-import {
-  AuthorizationBindings,
-  AuthorizationComponent,
-} from 'loopback4-authorization';
-import * as path from 'path';
 
-import {
-  BearerTokenVerifyProvider,
-  ClientPasswordVerifyProvider,
-  LocalPasswordVerifyProvider,
-  ResourceOwnerVerifyProvider,
-  GoogleOauth2VerifyProvider,
-} from './modules/authentication';
-import {MySequence} from './sequence';
-
-export class WebpageApiApplication extends BootMixin(
+export class WebApiApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
 ) {
   constructor(options: ApplicationConfig = {}) {
@@ -43,31 +37,16 @@ export class WebpageApiApplication extends BootMixin(
     });
     this.component(RestExplorerComponent);
 
-    // Bind authentication component related elements
-    this.component(AuthenticationComponent);
-
-    this.bind(Strategies.Passport.OAUTH2_CLIENT_PASSWORD_VERIFIER).toProvider(
-      ClientPasswordVerifyProvider,
+    // this.component(AuthenticationComponent);
+    this.bind(AuthenticationBindings.METADATA).toProvider(
+      MyAuthMetadataProvider,
     );
-    this.bind(Strategies.Passport.LOCAL_PASSWORD_VERIFIER).toProvider(
-      LocalPasswordVerifyProvider,
+    this.bind(MyAuthBindings.STRATEGY).toProvider(
+      MyAuthAuthenticationStrategyProvider,
     );
-    this.bind(Strategies.Passport.BEARER_TOKEN_VERIFIER).toProvider(
-      BearerTokenVerifyProvider,
+    this.bind(AuthenticationBindings.AUTH_ACTION).toProvider(
+      MyAuthActionProvider,
     );
-    this.bind(Strategies.Passport.RESOURCE_OWNER_PASSWORD_VERIFIER).toProvider(
-      ResourceOwnerVerifyProvider,
-    );
-    this.bind(Strategies.Passport.GOOGLE_OAUTH2_VERIFIER).toProvider(
-      GoogleOauth2VerifyProvider,
-    );
-
-    // Add authorization component
-    this.bind(AuthorizationBindings.CONFIG).to({
-      allowAlwaysPaths: ['/explorer'],
-    });
-
-    this.component(AuthorizationComponent);
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
@@ -80,17 +59,13 @@ export class WebpageApiApplication extends BootMixin(
       },
       repositories: {
         dirs: ['repositories'],
-        extensions: ['.repository.js'],
-        nested: true,
       },
     };
     dotenv.config();
-    // TODO: add stage, dev, prod environment files
     dotenvExt.load({
-      schema: '.env',
+      schema: '.env.example',
       errorOnMissing: false,
     });
-
-    console.log('ENV', process.env['NODE_ENV']);
+    console.log(process.env['USER_TEMP_PASSWORD']);
   }
 }

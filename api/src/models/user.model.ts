@@ -1,16 +1,9 @@
-import {hasOne, model, property} from '@loopback/repository';
-import {IAuthUser} from 'loopback4-authentication';
-
-import {
-  UserCredentials,
-  UserCredentialsWithRelations,
-} from './user-credentials.model';
+import {model, property, hasOne} from '@loopback/repository';
+import {UserCredentials} from './user-credentials.model';
 import {UserModifiableEntity} from './user-modifiable-entity.model';
 
-@model({
-  name: 'User',
-})
-export class User extends UserModifiableEntity implements IAuthUser {
+@model({settings: {strict: false}})
+export class User extends UserModifiableEntity {
   @property({
     type: 'string',
     id: true,
@@ -20,21 +13,25 @@ export class User extends UserModifiableEntity implements IAuthUser {
   @property({
     type: 'string',
     required: true,
-    name: 'firstName',
+  })
+  email: string;
+
+  @property({
+    type: 'string',
+    required: true,
   })
   firstName: string;
 
   @property({
     type: 'string',
-    name: 'lastName',
+    required: true,
   })
   lastName: string;
 
   @property({
-    type: 'string',
-    name: 'middleName',
+    type: 'date',
   })
-  middleName?: string;
+  lastLogin?: string;
 
   @property({
     type: 'string',
@@ -42,29 +39,9 @@ export class User extends UserModifiableEntity implements IAuthUser {
   })
   username: string;
 
-  @property({
-    type: 'string',
+  @hasOne(() => UserCredentials, {
+    keyTo: 'userId',
   })
-  email?: string;
-
-  @property({
-    type: 'string',
-  })
-  phone?: string;
-
-  @property({
-    type: 'string',
-    name: 'defaultTenant',
-  })
-  defaultTenant: string;
-
-  @property({
-    type: 'date',
-    name: 'lastLogin',
-  })
-  lastLogin?: string;
-
-  @hasOne(() => UserCredentials, {keyTo: 'userId'})
   credentials: UserCredentials;
 
   constructor(data?: Partial<User>) {
@@ -73,7 +50,7 @@ export class User extends UserModifiableEntity implements IAuthUser {
 }
 
 export interface UserRelations {
-  credentials: UserCredentialsWithRelations;
+  credentials: UserWithRelations;
 }
 
 export type UserWithRelations = User & UserRelations;
