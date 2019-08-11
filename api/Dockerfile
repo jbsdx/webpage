@@ -1,6 +1,8 @@
 # Check out https://hub.docker.com/_/node to select a new base image
 FROM node:10-slim
 
+RUN apt update && apt install -y netcat
+
 # Set to a non-root built-in user `node`
 USER node
 
@@ -23,6 +25,10 @@ RUN npm run build
 
 # Bind to all network interfaces so that it can be mapped to the host OS
 ENV HOST=0.0.0.0 PORT=3000
+
+RUN chmod 700 ./bin/wait-for-mongo.sh
+
+ENTRYPOINT ["/bin/sh", "./bin/wait-for-mongo.sh"]
 
 EXPOSE ${PORT}
 CMD [ "node", "." ]

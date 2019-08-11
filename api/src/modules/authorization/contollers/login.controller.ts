@@ -235,7 +235,6 @@ export class LoginController {
         const _role = await this.userRoleRepository.role(roles[i].id);
         authUser.roles.push(_role.name);
       }
-      console.log('authuser', authUser);
       const accessToken = sign(
         authUser.toJSON(),
         process.env.JWT_SECRET as string,

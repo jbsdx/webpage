@@ -20,6 +20,11 @@ export class Role extends BaseEntity {
   })
   name: string;
 
+  @property({
+    type: 'string',
+  })
+  nameWeb?: string;
+
   constructor(data?: Partial<Role>) {
     super(data);
   }

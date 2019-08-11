@@ -4,23 +4,31 @@ services:
     build: api/.
     ports:
       - "3000:3000"
+    environment:
+      SEED_DATABASE: "true"
+      MONGO_HOST: mongodb
+      MONGO_PORT: 27017
+    depends_on:
+      - redis
+      - mongodb
     links:
       - redis
       - mongodb
   redis:
     image: redis
     volumes:
-      - /home/jb/Data/volumes/webpage/redis
-    command: redis-server --requirepass dk3Jd83jgd8dj48dAb
+      - /home/jb/Data/volumes/webpage/redis:/data
+    command: redis-server --requirepass dk3Jd83jgd8dj48dAb --appendonly yes
     ports:
       - "6380:6379"
   mongodb:
     image: mongo
     volumes:
-      - /home/jb/Data/volumes/webpage/mongo
+      - /home/jb/Data/volumes/webpage/mongo:/data/db
+      - ./api/src/migrations/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_USERNAME: admin-user
       MONGO_INITDB_ROOT_PASSWORD: dk48d1JdkvnDK38zjnDK1jvkla
-      MONGO_INITDB_DATABASE: webpage
+      MONGO_INITDB_DATABASE: admin
     ports:
       - "27018:27017"

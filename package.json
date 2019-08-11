@@ -6,7 +6,11 @@
   "scripts": {
     "create:sdk": "sh bin/openapi.sh client/src/sdk",
     "create:changelog": "node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s",
-    "commit": "./node_modules/.bin/git-cz"
+    "commit": "./node_modules/.bin/git-cz",
+    "start:api": "docker-compose up",
+    "build:api": "docker-compose build",
+    "stop:api": "docker-compose stop",
+    "rebuild:api": "npm run stop:api && npm run build:api && npm run start:api"
   },
   "repository": {
     "type": "git",
