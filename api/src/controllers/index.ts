@@ -1,3 +1,4 @@
 export * from './ping.controller';
-export * from './hello.controller';
-export * from './news.controller';
+export * from './user-role.controller';
+export * from './role.controller';
+export * from './user.controller';

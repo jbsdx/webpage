@@ -1,4 +1,4 @@
-import {WebpageApiApplication} from '../..';
+import {WebApiApplication} from '../..';
 import {
   createRestAppClient,
   givenHttpServerConfig,
@@ -14,7 +14,7 @@ export async function setupApplication(): Promise<AppWithClient> {
     // port: +process.env.PORT,
   });
 
-  const app = new WebpageApiApplication({
+  const app = new WebApiApplication({
     rest: restConfig,
   });
 
@@ -27,6 +27,6 @@ export async function setupApplication(): Promise<AppWithClient> {
 }
 
 export interface AppWithClient {
-  app: WebpageApiApplication;
+  app: WebApiApplication;
   client: Client;
 }
