@@ -1,0 +1,26 @@
+version: "3"
+services:
+  api:
+    build: api/.
+    ports:
+      - "3000:3000"
+    links:
+      - redis
+      - mongodb
+  redis:
+    image: redis
+    volumes:
+      - /home/jb/Data/volumes/webpage/redis
+    command: redis-server --requirepass dk3Jd83jgd8dj48dAb
+    ports:
+      - "6380:6379"
+  mongodb:
+    image: mongo
+    volumes:
+      - /home/jb/Data/volumes/webpage/mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: dk48d1JdkvnDK38zjnDK1jvkla
+      MONGO_INITDB_DATABASE: webpage
+    ports:
+      - "27018:27017"
