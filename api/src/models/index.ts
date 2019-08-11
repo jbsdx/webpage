@@ -4,3 +4,6 @@ export * from './base-entity.model';
 export * from './user-modifiable-entity.model';
 export * from './role.model';
 export * from './user-role.model';
+export * from './auth-client.model';
+export * from './refresh-token.model';
+export * from './revoked-token.model';

@@ -39,6 +39,12 @@ export class User extends UserModifiableEntity {
   })
   username: string;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  password?: string;
+
   @hasOne(() => UserCredentials, {
     keyTo: 'userId',
   })

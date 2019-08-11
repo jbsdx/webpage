@@ -1,241 +1,88 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "LoopBack Application",
+    "title": "API SERVER 2.0",
     "version": "1.0.0"
   },
   "paths": {
-    "/auth/google": {
+    "/ping/deny-all": {
       "get": {
-        "x-controller-name": "LoginController",
-        "x-operation-name": "loginViaGoogle",
+        "x-controller-name": "PingController",
+        "x-operation-name": "testDenyAll",
         "tags": [
-          "LoginController"
+          "PingController"
         ],
         "responses": {
           "200": {
-            "description": "Token Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TokenResponse"
-                }
-              }
-            }
+            "description": "Return value of PingController.testDenyAll"
           }
         },
-        "parameters": [
-          {
-            "name": "client_id",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "client_secret",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "operationId": "LoginController.loginViaGoogle"
+        "operationId": "PingController.testDenyAll"
       }
     },
-    "/auth/google-auth-redirect": {
+    "/ping/has-any-role": {
       "get": {
-        "x-controller-name": "LoginController",
-        "x-operation-name": "googleCallback",
+        "x-controller-name": "PingController",
+        "x-operation-name": "testHasAnyRole",
         "tags": [
-          "LoginController"
+          "PingController"
         ],
         "responses": {
           "200": {
-            "description": "Token Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TokenResponse"
-                }
-              }
-            }
+            "description": "Return value of PingController.testHasAnyRole"
           }
         },
-        "parameters": [
-          {
-            "name": "code",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "state",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "operationId": "LoginController.googleCallback"
+        "operationId": "PingController.testHasAnyRole"
       }
     },
-    "/auth/login": {
-      "post": {
-        "x-controller-name": "LoginController",
-        "x-operation-name": "login",
-        "tags": [
-          "LoginController"
-        ],
-        "responses": {
-          "200": {
-            "description": "Auth Code",
-            "content": {}
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            }
-          }
-        },
-        "operationId": "LoginController.login"
-      }
-    },
-    "/auth/login-token": {
-      "post": {
-        "x-controller-name": "LoginController",
-        "x-operation-name": "loginWithClientUser",
-        "tags": [
-          "LoginController"
-        ],
-        "responses": {
-          "200": {
-            "description": "Token Response Model",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TokenResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            }
-          }
-        },
-        "operationId": "LoginController.loginWithClientUser"
-      }
-    },
-    "/auth/token": {
-      "post": {
-        "x-controller-name": "LoginController",
-        "x-operation-name": "getToken",
-        "tags": [
-          "LoginController"
-        ],
-        "responses": {
-          "200": {
-            "description": "Token Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TokenResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AuthTokenRequest"
-              }
-            }
-          }
-        },
-        "operationId": "LoginController.getToken"
-      }
-    },
-    "/auth/token-refresh": {
-      "post": {
-        "x-controller-name": "LoginController",
-        "x-operation-name": "exchangeToken",
-        "tags": [
-          "LoginController"
-        ],
-        "responses": {
-          "200": {
-            "description": "Token Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TokenResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AuthRefreshTokenRequest"
-              }
-            }
-          }
-        },
-        "operationId": "LoginController.exchangeToken"
-      }
-    },
-    "/hello": {
+    "/ping/has-roles": {
       "get": {
-        "x-controller-name": "HelloController",
-        "x-operation-name": "hello",
+        "x-controller-name": "PingController",
+        "x-operation-name": "testHasRoles",
         "tags": [
-          "HelloController"
+          "PingController"
         ],
         "responses": {
           "200": {
-            "description": "Return value of HelloController.hello"
+            "description": "Return value of PingController.testHasRoles"
           }
         },
-        "operationId": "HelloController.hello"
+        "operationId": "PingController.testHasRoles"
       }
     },
-    "/logout": {
-      "post": {
-        "x-controller-name": "LogoutController",
-        "x-operation-name": "logout",
+    "/ping/is-authenticated": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "testIsAuthenticated",
         "tags": [
-          "LogoutController"
+          "PingController"
         ],
         "responses": {
           "200": {
-            "description": "Return value of LogoutController.logout"
+            "description": "ping success"
           }
         },
-        "parameters": [
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
+            "token": []
           }
         ],
-        "operationId": "LogoutController.logout"
+        "operationId": "PingController.testIsAuthenticated"
+      }
+    },
+    "/ping/permit-all": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "testPermitAll",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return value of PingController.testPermitAll"
+          }
+        },
+        "operationId": "PingController.testPermitAll"
       }
     },
     "/ping": {
@@ -247,7 +94,34 @@
         ],
         "responses": {
           "200": {
-            "description": "Return value of PingController.ping"
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "greeting": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "headers": {
+                      "type": "object",
+                      "properties": {
+                        "Content-Type": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "PingController.ping"
@@ -308,7 +182,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -341,7 +215,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -350,7 +224,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Role"
+                "$ref": "#/components/schemas/RolePartial"
               }
             }
           },
@@ -381,7 +255,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -404,7 +278,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -435,7 +309,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Role"
+                "$ref": "#/components/schemas/RoleExcluding[id]"
               }
             }
           }
@@ -480,7 +354,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Role"
+                "$ref": "#/components/schemas/RolePartial"
               }
             }
           }
@@ -535,13 +409,10 @@
                     "id": {
                       "type": "boolean"
                     },
+                    "description": {
+                      "type": "boolean"
+                    },
                     "name": {
-                      "type": "boolean"
-                    },
-                    "permissions": {
-                      "type": "boolean"
-                    },
-                    "roleKey": {
                       "type": "boolean"
                     }
                   }
@@ -571,16 +442,16 @@
         "operationId": "RoleController.find"
       }
     },
-    "/tenants/count": {
+    "/user-roles/count": {
       "get": {
-        "x-controller-name": "TenantController",
+        "x-controller-name": "UserRoleController",
         "x-operation-name": "count",
         "tags": [
-          "TenantController"
+          "UserRoleController"
         ],
         "responses": {
           "200": {
-            "description": "Tenant model count",
+            "description": "UserRole model count",
             "content": {
               "application/json": {
                 "schema": {
@@ -606,19 +477,19 @@
             }
           }
         ],
-        "operationId": "TenantController.count"
+        "operationId": "UserRoleController.count"
       }
     },
-    "/tenants/{id}": {
+    "/user-roles/{id}": {
       "put": {
-        "x-controller-name": "TenantController",
+        "x-controller-name": "UserRoleController",
         "x-operation-name": "replaceById",
         "tags": [
-          "TenantController"
+          "UserRoleController"
         ],
         "responses": {
           "204": {
-            "description": "Tenant PUT success"
+            "description": "UserRole PUT success"
           }
         },
         "parameters": [
@@ -626,7 +497,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -635,23 +506,23 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Tenant"
+                "$ref": "#/components/schemas/UserRole"
               }
             }
           },
           "x-parameter-index": 1
         },
-        "operationId": "TenantController.replaceById"
+        "operationId": "UserRoleController.replaceById"
       },
       "patch": {
-        "x-controller-name": "TenantController",
+        "x-controller-name": "UserRoleController",
         "x-operation-name": "updateById",
         "tags": [
-          "TenantController"
+          "UserRoleController"
         ],
         "responses": {
           "204": {
-            "description": "Tenant PATCH success"
+            "description": "UserRole PATCH success"
           }
         },
         "parameters": [
@@ -659,7 +530,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -668,27 +539,27 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Tenant"
+                "$ref": "#/components/schemas/UserRolePartial"
               }
             }
           },
           "x-parameter-index": 1
         },
-        "operationId": "TenantController.updateById"
+        "operationId": "UserRoleController.updateById"
       },
       "get": {
-        "x-controller-name": "TenantController",
+        "x-controller-name": "UserRoleController",
         "x-operation-name": "findById",
         "tags": [
-          "TenantController"
+          "UserRoleController"
         ],
         "responses": {
           "200": {
-            "description": "Tenant model instance",
+            "description": "UserRole model instance",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tenant"
+                  "$ref": "#/components/schemas/UserRole"
                 }
               }
             }
@@ -699,22 +570,22 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
         ],
-        "operationId": "TenantController.findById"
+        "operationId": "UserRoleController.findById"
       },
       "delete": {
-        "x-controller-name": "TenantController",
+        "x-controller-name": "UserRoleController",
         "x-operation-name": "deleteById",
         "tags": [
-          "TenantController"
+          "UserRoleController"
         ],
         "responses": {
           "204": {
-            "description": "Tenant DELETE success"
+            "description": "UserRole DELETE success"
           }
         },
         "parameters": [
@@ -722,28 +593,28 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
         ],
-        "operationId": "TenantController.deleteById"
+        "operationId": "UserRoleController.deleteById"
       }
     },
-    "/tenants": {
+    "/user-roles": {
       "post": {
-        "x-controller-name": "TenantController",
+        "x-controller-name": "UserRoleController",
         "x-operation-name": "create",
         "tags": [
-          "TenantController"
+          "UserRoleController"
         ],
         "responses": {
           "200": {
-            "description": "Tenant model instance",
+            "description": "UserRole model instance",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tenant"
+                  "$ref": "#/components/schemas/UserRole"
                 }
               }
             }
@@ -753,22 +624,22 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Tenant"
+                "$ref": "#/components/schemas/UserRoleExcluding[id]"
               }
             }
           }
         },
-        "operationId": "TenantController.create"
+        "operationId": "UserRoleController.create"
       },
       "patch": {
-        "x-controller-name": "TenantController",
+        "x-controller-name": "UserRoleController",
         "x-operation-name": "updateAll",
         "tags": [
-          "TenantController"
+          "UserRoleController"
         ],
         "responses": {
           "200": {
-            "description": "Tenant PATCH success count",
+            "description": "UserRole PATCH success count",
             "content": {
               "application/json": {
                 "schema": {
@@ -798,28 +669,28 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Tenant"
+                "$ref": "#/components/schemas/UserRolePartial"
               }
             }
           }
         },
-        "operationId": "TenantController.updateAll"
+        "operationId": "UserRoleController.updateAll"
       },
       "get": {
-        "x-controller-name": "TenantController",
+        "x-controller-name": "UserRoleController",
         "x-operation-name": "find",
         "tags": [
-          "TenantController"
+          "UserRoleController"
         ],
         "responses": {
           "200": {
-            "description": "Array of Tenant model instances",
+            "description": "Array of UserRole model instances",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Tenant"
+                    "$ref": "#/components/schemas/UserRole"
                   }
                 }
               }
@@ -850,46 +721,13 @@
                     "modifiedOn": {
                       "type": "boolean"
                     },
-                    "createdBy": {
-                      "type": "boolean"
-                    },
-                    "modifiedBy": {
-                      "type": "boolean"
-                    },
                     "id": {
                       "type": "boolean"
                     },
-                    "name": {
+                    "userId": {
                       "type": "boolean"
                     },
-                    "type": {
-                      "type": "boolean"
-                    },
-                    "address1": {
-                      "type": "boolean"
-                    },
-                    "address2": {
-                      "type": "boolean"
-                    },
-                    "address3": {
-                      "type": "boolean"
-                    },
-                    "address4": {
-                      "type": "boolean"
-                    },
-                    "city": {
-                      "type": "boolean"
-                    },
-                    "state": {
-                      "type": "boolean"
-                    },
-                    "zip": {
-                      "type": "boolean"
-                    },
-                    "country": {
-                      "type": "boolean"
-                    },
-                    "status": {
+                    "roleId": {
                       "type": "boolean"
                     }
                   }
@@ -911,12 +749,52 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "include": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "relation": {
+                        "type": "string"
+                      },
+                      "scope": {
+                        "properties": {
+                          "where": {
+                            "type": "object"
+                          },
+                          "fields": {
+                            "type": "object",
+                            "properties": {}
+                          },
+                          "offset": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "limit": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "skip": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "order": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           }
         ],
-        "operationId": "TenantController.find"
+        "operationId": "UserRoleController.find"
       }
     },
     "/users/count": {
@@ -957,6 +835,30 @@
         "operationId": "UserController.count"
       }
     },
+    "/users/login": {
+      "post": {
+        "x-controller-name": "LoginController",
+        "x-operation-name": "login",
+        "tags": [
+          "LoginController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return value of LoginController.login"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "operationId": "LoginController.login"
+      }
+    },
     "/users/{id}": {
       "put": {
         "x-controller-name": "UserController",
@@ -974,7 +876,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -1007,7 +909,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -1016,7 +918,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserPartial"
               }
             }
           },
@@ -1047,7 +949,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -1070,7 +972,7 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             },
             "required": true
           }
@@ -1101,7 +1003,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserExcluding[id]"
               }
             }
           }
@@ -1146,7 +1048,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserPartial"
               }
             }
           }
@@ -1207,28 +1109,19 @@
                     "id": {
                       "type": "boolean"
                     },
+                    "email": {
+                      "type": "boolean"
+                    },
                     "firstName": {
                       "type": "boolean"
                     },
                     "lastName": {
                       "type": "boolean"
                     },
-                    "middleName": {
+                    "lastLogin": {
                       "type": "boolean"
                     },
                     "username": {
-                      "type": "boolean"
-                    },
-                    "email": {
-                      "type": "boolean"
-                    },
-                    "phone": {
-                      "type": "boolean"
-                    },
-                    "defaultTenant": {
-                      "type": "boolean"
-                    },
-                    "lastLogin": {
                       "type": "boolean"
                     }
                   }
@@ -1299,81 +1192,16 @@
       }
     }
   },
-  "servers": [
-    {
-      "url": "http://localhost:3000"
-    }
-  ],
   "components": {
+    "securitySchemes": {
+      "token": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "in": "header"
+      }
+    },
     "schemas": {
-      "LoginRequest": {
-        "title": "LoginRequest",
-        "properties": {
-          "client_id": {
-            "type": "string"
-          },
-          "client_secret": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "client_id",
-          "client_secret",
-          "username",
-          "password"
-        ]
-      },
-      "TokenResponse": {
-        "title": "TokenResponse",
-        "properties": {
-          "accessToken": {
-            "type": "string"
-          },
-          "refreshToken": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "accessToken",
-          "refreshToken"
-        ]
-      },
-      "AuthTokenRequest": {
-        "title": "AuthTokenRequest",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "clientId": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "code",
-          "clientId",
-          "username"
-        ]
-      },
-      "AuthRefreshTokenRequest": {
-        "title": "AuthRefreshTokenRequest",
-        "properties": {
-          "refreshToken": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "refreshToken"
-        ]
-      },
       "Role": {
         "title": "Role",
         "properties": {
@@ -1391,25 +1219,19 @@
           "id": {
             "type": "string"
           },
-          "name": {
+          "description": {
             "type": "string"
           },
-          "permissions": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "roleKey": {
-            "type": "number"
+          "name": {
+            "type": "string"
           }
         },
         "required": [
           "name"
         ]
       },
-      "Tenant": {
-        "title": "Tenant",
+      "RoleExcluding[id]": {
+        "title": "RoleExcluding[id]",
         "properties": {
           "deleted": {
             "type": "boolean"
@@ -1422,54 +1244,113 @@
             "type": "string",
             "format": "date-time"
           },
-          "createdBy": {
-            "type": "string"
-          },
-          "modifiedBy": {
-            "type": "string"
-          },
-          "id": {
+          "description": {
             "type": "string"
           },
           "name": {
             "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "address1": {
-            "type": "string"
-          },
-          "address2": {
-            "type": "string"
-          },
-          "address3": {
-            "type": "string"
-          },
-          "address4": {
-            "type": "string"
-          },
-          "city": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "zip": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
           }
         },
         "required": [
-          "name",
-          "type",
-          "status"
+          "name"
         ]
+      },
+      "RolePartial": {
+        "title": "RolePartial",
+        "properties": {
+          "deleted": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "UserRole": {
+        "title": "UserRole",
+        "properties": {
+          "deleted": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "roleId": {
+            "type": "string"
+          }
+        }
+      },
+      "UserRoleExcluding[id]": {
+        "title": "UserRoleExcluding[id]",
+        "properties": {
+          "deleted": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "roleId": {
+            "type": "string"
+          }
+        }
+      },
+      "UserRolePartial": {
+        "title": "UserRolePartial",
+        "properties": {
+          "deleted": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "roleId": {
+            "type": "string"
+          }
+        }
       },
       "User": {
         "title": "User",
@@ -1494,37 +1375,120 @@
           "id": {
             "type": "string"
           },
+          "email": {
+            "type": "string"
+          },
           "firstName": {
             "type": "string"
           },
           "lastName": {
             "type": "string"
           },
-          "middleName": {
-            "type": "string"
+          "lastLogin": {
+            "type": "string",
+            "format": "date-time"
           },
           "username": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "username"
+        ]
+      },
+      "UserExcluding[id]": {
+        "title": "UserExcluding[id]",
+        "properties": {
+          "deleted": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "modifiedBy": {
             "type": "string"
           },
           "email": {
             "type": "string"
           },
-          "phone": {
+          "firstName": {
             "type": "string"
           },
-          "defaultTenant": {
+          "lastName": {
             "type": "string"
           },
           "lastLogin": {
             "type": "string",
             "format": "date-time"
+          },
+          "username": {
+            "type": "string"
           }
         },
         "required": [
+          "email",
           "firstName",
+          "lastName",
           "username"
         ]
+      },
+      "UserPartial": {
+        "title": "UserPartial",
+        "properties": {
+          "deleted": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "lastLogin": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "username": {
+            "type": "string"
+          }
+        }
       }
     }
-  }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ]
 }

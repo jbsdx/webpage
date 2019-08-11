@@ -15,7 +15,8 @@ import {
   MyAuthBindings,
   MyAuthAuthenticationStrategyProvider,
   MyAuthActionProvider,
-} from './modules/authorization/auth';
+} from './modules/authorization';
+
 import * as dotenv from 'dotenv';
 import * as dotenvExt from 'dotenv-extended';
 
@@ -24,6 +25,25 @@ export class WebApiApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
+
+    this.api({
+      openapi: '3.0.0',
+      info: {
+        title: process.env['TITLE'] as string,
+        version: process.env['VERSION'] as string,
+      },
+      paths: {},
+      components: {
+        securitySchemes: {
+          token: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+            in: 'header',
+          },
+        },
+      },
+    });
 
     // Set up the custom sequence
     this.sequence(MySequence);
@@ -37,7 +57,6 @@ export class WebApiApplication extends BootMixin(
     });
     this.component(RestExplorerComponent);
 
-    // this.component(AuthenticationComponent);
     this.bind(AuthenticationBindings.METADATA).toProvider(
       MyAuthMetadataProvider,
     );
@@ -49,10 +68,9 @@ export class WebApiApplication extends BootMixin(
     );
 
     this.projectRoot = __dirname;
-    // Customize @loopback/boot Booter Conventions here
+
     this.bootOptions = {
       controllers: {
-        // Customize ControllerBooter Conventions here
         dirs: ['controllers', 'modules'],
         extensions: ['.controller.js'],
         nested: true,
@@ -61,11 +79,11 @@ export class WebApiApplication extends BootMixin(
         dirs: ['repositories'],
       },
     };
+
     dotenv.config();
     dotenvExt.load({
-      schema: '.env.example',
+      schema: '.env.stage',
       errorOnMissing: false,
     });
-    console.log(process.env['USER_TEMP_PASSWORD']);
   }
 }

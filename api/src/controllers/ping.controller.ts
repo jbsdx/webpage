@@ -1,6 +1,7 @@
 import {Request, RestBindings, get, ResponseObject} from '@loopback/rest';
 import {inject} from '@loopback/context';
-import {secured, SecuredType} from '../modules/authorization/auth';
+import {secured, SecuredType} from '../modules/authorization';
+import {AuthenticationBindings, UserProfile} from '@loopback/authentication';
 
 /**
  * OpenAPI response for ping()
@@ -49,32 +50,70 @@ export class PingController {
     };
   }
 
-  @get('/ping/is-authenticated')
+  @get('/ping/is-authenticated', {
+    responses: {
+      '200': {
+        description: 'ping success',
+      },
+    },
+    security: [{token: []}],
+  })
   @secured(SecuredType.IS_AUTHENTICATED)
-  testIsAuthenticated() {
-    return {message: 'isAuthenticated: OK'};
+  testIsAuthenticated(
+    @inject(AuthenticationBindings.CURRENT_USER, {optional: true})
+    userProfile: UserProfile,
+  ) {
+    return {message: 'isAuthenticated: OK', profile: userProfile};
   }
 
-  @get('/ping/permit-all')
+  @get('/ping/permit-all', {
+    responses: {
+      '200': {
+        description: 'ping success',
+      },
+    },
+    security: [{token: []}],
+  })
   @secured(SecuredType.PERMIT_ALL)
   testPermitAll() {
     return {message: 'permitAll: OK'};
   }
 
-  @get('/ping/deny-all')
+  @get('/ping/deny-all', {
+    responses: {
+      '200': {
+        description: 'ping success',
+      },
+    },
+    security: [{token: []}],
+  })
   @secured(SecuredType.DENY_ALL)
   testDenyAll() {
     return {message: 'denyAll: OK'};
   }
 
-  @get('/ping/has-any-role')
-  @secured(SecuredType.HAS_ANY_ROLE, ['ADMIN', 'ADMIN2'])
+  @get('/ping/has-any-role', {
+    responses: {
+      '200': {
+        description: 'ping success',
+      },
+    },
+    security: [{token: []}],
+  })
+  @secured(SecuredType.HAS_ANY_ROLE, ['admin', 'ADMIN2'])
   testHasAnyRole() {
     return {message: 'hasAnyRole: OK'};
   }
 
-  @get('/ping/has-roles')
-  @secured(SecuredType.HAS_ROLES, ['ADMIN', 'ADMIN2'])
+  @get('/ping/has-roles', {
+    responses: {
+      '200': {
+        description: 'ping success',
+      },
+    },
+    security: [{token: []}],
+  })
+  @secured(SecuredType.HAS_ROLES, ['admin'])
   testHasRoles() {
     return {message: 'hasRoles: OK'};
   }

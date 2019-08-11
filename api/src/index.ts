@@ -5,6 +5,7 @@ export {WebApiApplication};
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new WebApiApplication(options);
+
   await app.boot();
   await app.start();
 

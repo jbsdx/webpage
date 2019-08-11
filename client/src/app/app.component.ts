@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NewsControllerService } from "src/sdk";
+import { PingControllerService, LoginControllerService } from "src/sdk";
 
 @Component({
   selector: "app-root",
@@ -9,10 +9,15 @@ import { NewsControllerService } from "src/sdk";
 export class AppComponent implements OnInit {
   title = "client";
 
-  constructor(readonly newsApi: NewsControllerService) {}
+  constructor(
+    readonly newsApi: PingControllerService,
+    readonly loginApi: LoginControllerService
+  ) {}
 
   async ngOnInit() {
-    const count = await this.newsApi.newsControllerCount().toPromise();
+    const count = await this.newsApi
+      .pingControllerTestIsAuthenticated()
+      .toPromise();
     console.log("COUNT", count);
   }
 }
