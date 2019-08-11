@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "create:sdk": "sh bin/openapi.sh client/src/sdk",
+    "create:changelog": "node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s",
     "commit": "./node_modules/.bin/git-cz"
   },
   "repository": {
@@ -22,6 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "commitizen": "^4.0.3",
+    "conventional-changelog-cli": "^2.0.23",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
