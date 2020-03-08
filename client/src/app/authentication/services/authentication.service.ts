@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   LoginControllerService,
   ApiModule,
   Configuration,
   PingControllerService,
-} from 'src/sdk';
+} from 'src/sdk/web-backend';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,10 @@ export class AuthenticationService {
   constructor(
     private readonly loginApi: LoginControllerService,
     private pingApi: PingControllerService,
-  ) {}
+    private apiConfigurationService: ApiConfigurationService,
+  ) {
+    this.loginApi.configuration = this.apiConfigurationService.configuration;
+  }
 
   /**
    * Login with credentials
@@ -23,32 +26,21 @@ export class AuthenticationService {
    *
    */
   async login(username: string, password: string) {
-    console.log('pingodne');
+    // get auth code
     const loginRes = await this.getAuthCode(username, password);
     if (loginRes.code) {
+      // trade code with acces-token
       const authRes = await this.getAccessToken(username, loginRes.code);
-      console.log(authRes);
-
-      const {accessToken, refreshToken} = authRes;
-      this.updateAccessToken(accessToken);
+      const { accessToken, refreshToken } = authRes;
+      this.apiConfigurationService.updateAccessToken(accessToken);
     }
-  }
-
-  async updateAccessToken(accessToken: string) {
-    ApiModule.forRoot(
-      () =>
-        new Configuration({
-          accessToken: accessToken,
-          basePath: 'http://localhost:3000',
-        }),
-    );
   }
 
   private getAuthCode(username: string, password: string) {
     return this.loginApi
       .loginControllerLogin({
-        client_id: 'webapp',
-        client_secret: 'd§kd8fh!',
+        clientId: 'webapp',
+        clientSecret: 'd§kd8fh!',
         password: password,
         username: username,
       })

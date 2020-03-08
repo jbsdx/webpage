@@ -580,9 +580,6 @@
                     },
                     "name": {
                       "type": "boolean"
-                    },
-                    "nameWeb": {
-                      "type": "boolean"
                     }
                   }
                 },
@@ -1452,9 +1449,6 @@
           },
           "name": {
             "type": "string"
-          },
-          "nameWeb": {
-            "type": "string"
           }
         },
         "required": [
@@ -1479,9 +1473,6 @@
             "type": "string"
           },
           "name": {
-            "type": "string"
-          },
-          "nameWeb": {
             "type": "string"
           }
         },
@@ -1510,9 +1501,6 @@
             "type": "string"
           },
           "name": {
-            "type": "string"
-          },
-          "nameWeb": {
             "type": "string"
           }
         }
@@ -1636,7 +1624,8 @@
           "email",
           "firstName",
           "lastName",
-          "username"
+          "username",
+          "password"
         ]
       },
       "UserExcluding[id]": {
@@ -1683,7 +1672,8 @@
           "email",
           "firstName",
           "lastName",
-          "username"
+          "username",
+          "password"
         ]
       },
       "UserPartial": {

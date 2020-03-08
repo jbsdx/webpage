@@ -1,7 +1,7 @@
 import {Request, RestBindings, get, ResponseObject} from '@loopback/rest';
 import {inject} from '@loopback/context';
 import {secured, SecuredType} from '../modules/authorization';
-import {AuthenticationBindings, UserProfile} from '@loopback/authentication';
+import {AuthenticationBindings} from '@loopback/authentication';
 
 /**
  * OpenAPI response for ping()
@@ -61,7 +61,7 @@ export class PingController {
   @secured(SecuredType.IS_AUTHENTICATED)
   testIsAuthenticated(
     @inject(AuthenticationBindings.CURRENT_USER, {optional: true})
-    userProfile: UserProfile,
+    userProfile: any,
   ) {
     return {message: 'isAuthenticated: OK', profile: userProfile};
   }

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {User, UserControllerService, PingControllerService} from 'src/sdk';
-import {AuthenticationService} from '../services/authentication.service';
+import { Component, OnInit } from '@angular/core';
+import { User, UserControllerService, PingControllerService } from 'src/sdk/web-backend';
+import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,6 +10,7 @@ export class LoginComponent implements OnInit {
   user: User = {
     username: '',
     email: '',
+    password: '',
     firstName: '',
     lastName: '',
   };
@@ -17,9 +18,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly authenticationService: AuthenticationService,
     private readonly pingApi: PingControllerService,
-  ) {}
+  ) { }
 
-  async ngOnInit() {}
+  async ngOnInit() { }
 
   login() {
     this.authenticationService.login(this.user.username, this.user.password);

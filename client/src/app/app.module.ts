@@ -3,12 +3,10 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {ApiModule, Configuration} from 'src/sdk';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthenticationModule} from './authentication/authentication.module';
-
-const config = new Configuration();
-config.basePath = 'http://localhost:3000/';
+import {environment} from 'src/environments/environment';
+import { ApiModule, Configuration } from 'src/sdk/web-backend';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +15,12 @@ config.basePath = 'http://localhost:3000/';
     HttpClientModule,
     AuthenticationModule,
     AppRoutingModule,
-    ApiModule.forRoot(() => config),
+    ApiModule.forRoot(
+      () =>
+        new Configuration({
+          basePath: environment.backendUrl,
+        }),
+    ),
   ],
   providers: [],
   bootstrap: [AppComponent],
