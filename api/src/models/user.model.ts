@@ -41,7 +41,6 @@ export class User extends UserModifiableEntity {
 
   @property({
     type: 'string',
-    required: true,
   })
   password?: string;
 

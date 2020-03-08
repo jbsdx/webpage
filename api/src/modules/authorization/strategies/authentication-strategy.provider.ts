@@ -1,7 +1,6 @@
 import {
   AuthenticationBindings,
   AuthenticationStrategy,
-  UserProfile,
 } from '@loopback/authentication';
 import {MyAuthenticationMetadata, SecuredType, Credentials} from '../types';
 import {inject, Provider, ValueOrPromise} from '@loopback/core';
@@ -61,11 +60,7 @@ export class MyAuthAuthenticationStrategyProvider
   // if user is found, then verify its roles
   async verifyToken(
     payload: Credentials,
-    done: (
-      err: Error | null,
-      user?: UserProfile | false,
-      info?: Object,
-    ) => void,
+    done: (err: Error | null, user?: any | false, info?: Object) => void,
   ) {
     try {
       const user = await this.userRepository.findOne({
@@ -98,11 +93,13 @@ export class MyAuthAuthenticationStrategyProvider
       return;
 
     // convert role name to role-id list
-    const roleIds: string[] = (await this.roleRepository.find({
-      where: {
-        name: {inq: roles},
-      },
-    })).map(role => role.id as string);
+    const roleIds: string[] = (
+      await this.roleRepository.find({
+        where: {
+          name: {inq: roles},
+        },
+      })
+    ).map(role => role.id as string);
 
     if (type === SecuredType.HAS_ANY_ROLE) {
       if (!roles.length) return;

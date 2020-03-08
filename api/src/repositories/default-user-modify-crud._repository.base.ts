@@ -5,7 +5,7 @@ import {DataObject, Where, Count} from '@loopback/repository';
 import {Options} from 'loopback-datasource-juggler';
 import {HttpErrors} from '@loopback/rest';
 import {MongodbDataSource} from '../datasources';
-import {UserProfile, AuthenticationBindings} from '@loopback/authentication';
+import {AuthenticationBindings} from '@loopback/authentication';
 import {inject, Getter} from '@loopback/core';
 
 export abstract class DefaultUserModifyCrudRepository<
@@ -18,7 +18,7 @@ export abstract class DefaultUserModifyCrudRepository<
       prototype: T;
     },
     dataSource: MongodbDataSource,
-    protected readonly getCurrentUser: Getter<UserProfile | undefined>,
+    protected readonly getCurrentUser: Getter<any>,
   ) {
     super(entityClass, dataSource);
   }

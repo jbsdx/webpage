@@ -2,7 +2,6 @@ import {
   AuthenticateFn,
   AuthenticationStrategy,
   AuthenticationBindings,
-  UserProfile,
 } from '@loopback/authentication';
 import {Provider, Getter, Setter, inject} from '@loopback/core';
 import {MyAuthBindings} from '../keys';
@@ -15,7 +14,7 @@ export class MyAuthActionProvider implements Provider<AuthenticateFn> {
     @inject.getter(MyAuthBindings.STRATEGY)
     readonly getStrategy: Getter<AuthenticationStrategy>,
     @inject.setter(AuthenticationBindings.CURRENT_USER)
-    readonly setCurrentUser: Setter<UserProfile>,
+    readonly setCurrentUser: Setter<any>,
     @inject.getter(AuthenticationBindings.METADATA)
     readonly getMetadata: Getter<MyAuthenticationMetadata>,
   ) {}
@@ -24,7 +23,7 @@ export class MyAuthActionProvider implements Provider<AuthenticateFn> {
     return request => this.action(request);
   }
 
-  async action(request: Request): Promise<UserProfile | undefined> {
+  async action(request: Request): Promise<any> {
     const metadata = await this.getMetadata();
     if (metadata && metadata.type === SecuredType.PERMIT_ALL) return;
 

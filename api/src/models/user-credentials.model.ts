@@ -1,5 +1,5 @@
 import {model, property, belongsTo} from '@loopback/repository';
-import {User} from './user.model';
+import {User, UserWithRelations} from './user.model';
 import {BaseEntity} from './base-entity.model';
 
 @model({settings: {strict: false}})
@@ -25,7 +25,7 @@ export class UserCredentials extends BaseEntity {
 }
 
 export interface UserCredentialsRelations {
-  // describe navigational properties here
+  user: UserWithRelations;
 }
 
 export type UserCredentialsWithRelations = UserCredentials &

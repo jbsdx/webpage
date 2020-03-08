@@ -1,24 +1,28 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { ApiModule, Configuration } from "src/sdk";
-import { HttpClientModule } from "@angular/common/http";
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HttpClientModule} from '@angular/common/http';
+import {AuthenticationModule} from './authentication/authentication.module';
+import {environment} from 'src/environments/environment';
+import { ApiModule, Configuration } from 'src/sdk/web-backend';
 
-const config = new Configuration();
-config.basePath = "http://localhost:3000/";
-config.accessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmFzX2JlbnoiLCJpYXQiOjE1NjU0NTc5NTJ9.figLyP12tr6ilKdLRtWem7RpabuM7vzxmThH-ESbdkc";
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
+    AuthenticationModule,
     AppRoutingModule,
-    ApiModule.forRoot(() => config)
+    ApiModule.forRoot(
+      () =>
+        new Configuration({
+          basePath: environment.backendUrl,
+        }),
+    ),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

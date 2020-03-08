@@ -4,9 +4,13 @@
   "description": "webpage api+client",
   "main": "index.js",
   "scripts": {
-    "create:sdk": "sh bin/openapi.sh client/src/sdk",
+    "create:sdk": "sh bin/openapi.sh client/src/sdk/web-backend api.spec.json",
     "create:changelog": "node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s",
-    "commit": "./node_modules/.bin/git-cz"
+    "commit": "./node_modules/.bin/git-cz",
+    "start:api": "docker-compose up",
+    "build:api": "docker-compose build",
+    "stop:api": "docker-compose stop",
+    "rebuild:api": "npm run stop:api && npm run build:api && npm run start:api"
   },
   "repository": {
     "type": "git",
@@ -23,17 +27,18 @@
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "commitizen": "^4.0.3",
-    "conventional-changelog-cli": "^2.0.23",
-    "cz-conventional-changelog": "^3.0.2",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-eslint-plugin": "^2.1.0",
-    "eslint-plugin-mocha": "^6.0.0",
+    "conventional-changelog-cli": "^2.0.31",
+    "cz-conventional-changelog": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-eslint-plugin": "^2.2.1",
+    "eslint-plugin-mocha": "^6.3.0",
     "typescript": "~3.5.3"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "dependencies": {}
 }

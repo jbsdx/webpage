@@ -28,6 +28,6 @@ export class UserRoleRepository extends DefaultCrudRepository<
     super(UserRole, dataSource);
 
     this.role = this.createBelongsToAccessorFor('role', roleRepositoryGetter);
-    this.user = this.createBelongsToAccessorFor('role', userRepositoryGetter);
+    this.user = this.createBelongsToAccessorFor('user', userRepositoryGetter);
   }
 }

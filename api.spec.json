@@ -1,10 +1,116 @@
 {
   "openapi": "3.0.0",
-  "info": {
-    "title": "API SERVER 2.0",
-    "version": "1.0.0"
-  },
+  "info": {},
   "paths": {
+    "/auth/login": {
+      "post": {
+        "x-controller-name": "LoginController",
+        "x-operation-name": "login",
+        "tags": [
+          "LoginController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Auth Code",
+            "content": {}
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "operationId": "LoginController.login"
+      }
+    },
+    "/auth/token": {
+      "post": {
+        "x-controller-name": "LoginController",
+        "x-operation-name": "token",
+        "tags": [
+          "LoginController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return value of LoginController.token"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthTokenRequest"
+              }
+            }
+          }
+        },
+        "operationId": "LoginController.token"
+      }
+    },
+    "/auth/token-refresh": {
+      "post": {
+        "x-controller-name": "LoginController",
+        "x-operation-name": "exchangeToken",
+        "tags": [
+          "LoginController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Token Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthRefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "operationId": "LoginController.exchangeToken"
+      }
+    },
+    "/logout": {
+      "post": {
+        "x-controller-name": "LogoutController",
+        "x-operation-name": "logout",
+        "tags": [
+          "LogoutController"
+        ],
+        "responses": {
+          "200": {
+            "description": "logout success"
+          }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "LogoutController.logout"
+      }
+    },
     "/ping/deny-all": {
       "get": {
         "x-controller-name": "PingController",
@@ -14,9 +120,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Return value of PingController.testDenyAll"
+            "description": "ping success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "operationId": "PingController.testDenyAll"
       }
     },
@@ -29,9 +140,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Return value of PingController.testHasAnyRole"
+            "description": "ping success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "operationId": "PingController.testHasAnyRole"
       }
     },
@@ -44,9 +160,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Return value of PingController.testHasRoles"
+            "description": "ping success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "operationId": "PingController.testHasRoles"
       }
     },
@@ -79,9 +200,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Return value of PingController.testPermitAll"
+            "description": "ping success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "operationId": "PingController.testPermitAll"
       }
     },
@@ -151,6 +277,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "where",
@@ -177,6 +308,11 @@
             "description": "Role PUT success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -210,6 +346,11 @@
             "description": "Role PATCH success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -250,6 +391,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -273,6 +419,11 @@
             "description": "Role DELETE success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -305,6 +456,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -339,6 +495,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "where",
@@ -382,6 +543,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "filter",
@@ -466,6 +632,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "where",
@@ -492,6 +663,11 @@
             "description": "UserRole PUT success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -525,6 +701,11 @@
             "description": "UserRole PATCH success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -565,6 +746,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -588,6 +774,11 @@
             "description": "UserRole DELETE success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -620,6 +811,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -654,6 +850,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "where",
@@ -697,6 +898,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "filter",
@@ -821,6 +1027,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "where",
@@ -835,30 +1046,6 @@
         "operationId": "UserController.count"
       }
     },
-    "/users/login": {
-      "post": {
-        "x-controller-name": "LoginController",
-        "x-operation-name": "login",
-        "tags": [
-          "LoginController"
-        ],
-        "responses": {
-          "200": {
-            "description": "Return value of LoginController.login"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        },
-        "operationId": "LoginController.login"
-      }
-    },
     "/users/{id}": {
       "put": {
         "x-controller-name": "UserController",
@@ -871,6 +1058,11 @@
             "description": "User PUT success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -904,6 +1096,11 @@
             "description": "User PATCH success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -944,6 +1141,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -967,6 +1169,11 @@
             "description": "User DELETE success"
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -999,6 +1206,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1033,6 +1245,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "where",
@@ -1076,6 +1293,11 @@
             }
           }
         },
+        "security": [
+          {
+            "token": []
+          }
+        ],
         "parameters": [
           {
             "name": "filter",
@@ -1122,6 +1344,9 @@
                       "type": "boolean"
                     },
                     "username": {
+                      "type": "boolean"
+                    },
+                    "password": {
                       "type": "boolean"
                     }
                   }
@@ -1390,13 +1615,17 @@
           },
           "username": {
             "type": "string"
+          },
+          "password": {
+            "type": "string"
           }
         },
         "required": [
           "email",
           "firstName",
           "lastName",
-          "username"
+          "username",
+          "password"
         ]
       },
       "UserExcluding[id]": {
@@ -1434,13 +1663,17 @@
           },
           "username": {
             "type": "string"
+          },
+          "password": {
+            "type": "string"
           }
         },
         "required": [
           "email",
           "firstName",
           "lastName",
-          "username"
+          "username",
+          "password"
         ]
       },
       "UserPartial": {
@@ -1481,8 +1714,79 @@
           },
           "username": {
             "type": "string"
+          },
+          "password": {
+            "type": "string"
           }
         }
+      },
+      "AuthTokenRequest": {
+        "title": "AuthTokenRequest",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "clientId",
+          "username"
+        ]
+      },
+      "LoginRequest": {
+        "title": "LoginRequest",
+        "properties": {
+          "client_id": {
+            "type": "string"
+          },
+          "client_secret": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "client_id",
+          "client_secret",
+          "username",
+          "password"
+        ]
+      },
+      "TokenResponse": {
+        "title": "TokenResponse",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "accessToken",
+          "refreshToken"
+        ]
+      },
+      "AuthRefreshTokenRequest": {
+        "title": "AuthRefreshTokenRequest",
+        "properties": {
+          "refreshToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "refreshToken"
+        ]
       }
     }
   },

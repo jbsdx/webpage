@@ -1,23 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { PingControllerService, LoginControllerService } from "src/sdk";
+import { Component, OnInit } from '@angular/core';
+import { LoginControllerService, PingControllerService } from 'src/sdk/web-backend';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = "client";
+  title = 'client';
 
   constructor(
-    readonly newsApi: PingControllerService,
-    readonly loginApi: LoginControllerService
-  ) {}
+    readonly pingApi: PingControllerService,
+    readonly loginApi: LoginControllerService,
+  ) { }
 
   async ngOnInit() {
-    const count = await this.newsApi
-      .pingControllerTestIsAuthenticated()
-      .toPromise();
-    console.log("COUNT", count);
   }
 }
