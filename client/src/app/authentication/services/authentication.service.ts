@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   LoginControllerService,
   ApiModule,
@@ -13,10 +13,7 @@ export class AuthenticationService {
   constructor(
     private readonly loginApi: LoginControllerService,
     private pingApi: PingControllerService,
-    private apiConfigurationService: ApiConfigurationService,
-  ) {
-    this.loginApi.configuration = this.apiConfigurationService.configuration;
-  }
+  ) {}
 
   /**
    * Login with credentials
@@ -31,8 +28,6 @@ export class AuthenticationService {
     if (loginRes.code) {
       // trade code with acces-token
       const authRes = await this.getAccessToken(username, loginRes.code);
-      const { accessToken, refreshToken } = authRes;
-      this.apiConfigurationService.updateAccessToken(accessToken);
     }
   }
 
@@ -40,7 +35,7 @@ export class AuthenticationService {
     return this.loginApi
       .loginControllerLogin({
         clientId: 'webapp',
-        clientSecret: 'd§kd8fh!',
+        clientSecret: '123456',
         password: password,
         username: username,
       })
