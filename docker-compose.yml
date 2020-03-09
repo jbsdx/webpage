@@ -18,7 +18,7 @@ services:
   redis:
     image: redis
     volumes:
-      - /home/jb/Data/volumes/webpage/redis:/data
+      - ./volumes/redis:/data
     command: redis-server --requirepass dk3Jd83jgd8dj48dAb --appendonly yes
     ports:
       - "6380:6379"
@@ -26,7 +26,7 @@ services:
   mongodb:
     image: mongo
     volumes:
-      - /home/jb/Data/volumes/webpage/mongo:/data/db
+      - ./volumes/mongo:/data/db
       - ./api/src/migrations/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin-user
