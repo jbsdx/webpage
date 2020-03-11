@@ -1,17 +1,14 @@
-import {WebApiApplication} from './application';
 import {ApplicationConfig} from '@loopback/core';
 
-export {WebApiApplication};
+import {ExpressServer} from './server';
+
+export {ExpressServer};
+export {WebApiApplication} from './application';
 
 export async function main(options: ApplicationConfig = {}) {
-  const app = new WebApiApplication(options);
+  const server = new ExpressServer(options);
+  await server.boot();
+  await server.start();
 
-  await app.boot();
-  await app.start();
-
-  const url = app.restServer.url;
-  console.log(`Server is running at ${url}`);
-  console.log(`Try ${url}/ping`);
-
-  return app;
+  console.log(`Server is running... [Default: http://127.0.0.1:3000]`);
 }

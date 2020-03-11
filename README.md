@@ -21,3 +21,5 @@ install client
 ```shell
 cd client && npm i
 ```
+
+## Contains basics Docker image
