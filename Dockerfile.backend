@@ -17,36 +17,13 @@ RUN mkdir -p /home/node/app
 WORKDIR /home/node/app/
 
 # Copy source files
-COPY --chown=node . .
+COPY --chown=node ./api/. .
+COPY --chown=node ./bin/. ./bin
 
 # Install build dependencies
 RUN npm install
 
-# Generate client api-sdk library
-RUN npm run create:sdk
-
-RUN mkdir -p /home/node/app/client
-
-WORKDIR /home/node/app/client
-
-# Install ui dependencies
-RUN npm install
-
-# Compile ui source
-RUN if [ "$env" = "prod" ] ; then npm run build:prod; fi
-RUN if [ "$env" = "stage" ] ; then npm run build:stage; fi
-RUN if [ "$env" = "local" ] ; then npm run build:local; fi
-
-# Move ui fragments to public dir
-RUN mv dist/client/* ../api/public/
-
-RUN mkdir -p /home/node/app/api
-
-WORKDIR /home/node/app/api
-
-# Install api dependencies
-RUN npm install
-
+# Compile source files
 RUN npm run build
 
 # Bind to all network interfaces so that it can be mapped to the host OS

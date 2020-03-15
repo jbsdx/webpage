@@ -1,0 +1,40 @@
+version: "3.3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        env: local
+    environment:
+      SEED_DATABASE: enabled
+      MONGO_HOST: mongodb
+      MONGO_PORT: 27017
+    ports:
+      - 3000:3000
+    depends_on:
+      - redis
+      - mongodb
+    links:
+      - redis
+      - mongodb
+
+  redis:
+    image: redis
+    volumes:
+      - ./volumes/redis:/data
+    command: redis-server --requirepass dk3Jd83jgd8dj48dAb --appendonly yes
+    ports:
+      - "6380:6379"
+
+  mongodb:
+    image: mongo
+    volumes:
+      - ./volumes/mongo:/data/db
+      - ./api/src/migrations/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin-user
+      MONGO_INITDB_ROOT_PASSWORD: dk48d1JdkvnDK38zjnDK1jvkla
+      MONGO_INITDB_DATABASE: admin
+    ports:
+      - "27018:27017"

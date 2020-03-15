@@ -2,24 +2,23 @@
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-## Installation
+Stack: Traefik reverse-proxy + letsencrypt, Loopback V4 Backend, Angular V9 Frontend
 
-create openapi typescript-angular sdk
+## Usage
+
+Create OpenApi spec file to generate the Angular Backend-SDK source files
+Loopback server needs to be up and running
 
 ```shell
 sh bin/openapi.sh
 ```
 
-install api
+## Docker
 
-```shell
-cd api && npm i
+Use docker-compose to deploy the stack
+
+Reverse proxy will be listening on Port 80
+
 ```
-
-install client
-
-```shell
-cd client && npm i
+docker-compose build && docker-compose up
 ```
-
-## Contains basics Docker image
