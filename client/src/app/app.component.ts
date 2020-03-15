@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginControllerService, PingControllerService } from 'src/sdk/web-backend';
+import {Component, OnInit} from '@angular/core';
+import {
+  LoginControllerService,
+  PingControllerService,
+} from 'src/sdk/web-backend';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +10,12 @@ import { LoginControllerService, PingControllerService } from 'src/sdk/web-backe
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'client';
+  year = new Date().getFullYear();
 
   constructor(
     readonly pingApi: PingControllerService,
     readonly loginApi: LoginControllerService,
-  ) { }
+  ) {}
 
-  async ngOnInit() {
-  }
+  async ngOnInit() {}
 }
