@@ -4,13 +4,32 @@
 
 Stack: Traefik reverse-proxy + letsencrypt, Loopback V4 Backend, Angular V9 Frontend
 
-## Usage
+## Development
 
-Create OpenApi spec file to generate the Angular Backend-SDK source files
-Loopback server needs to be up and running
+Build and start Loopback backend server
 
 ```shell
-sh bin/openapi.sh
+$ npm run rebuild:api
+```
+
+Create OpenApi spec file
+
+```shell
+$ npm run create:spec
+```
+
+Manually create backend SDK files for the Angular client
+
+```shell
+$ npm run create:sdk
+```
+
+Install the client and start angular development server
+
+```shell
+$ cd client
+$ npm install
+$ ng serve -o
 ```
 
 ## Docker
