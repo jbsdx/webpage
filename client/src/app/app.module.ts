@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthenticationModule} from './authentication/authentication.module';
 import {environment} from 'src/environments/environment';
-import { ApiModule, Configuration } from 'src/sdk/web-backend';
+import {ApiModule, Configuration} from 'src/sdk/web-backend';
 
 @NgModule({
   declarations: [AppComponent],

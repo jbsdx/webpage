@@ -34,11 +34,11 @@ export class AuthenticationService {
   private getAuthCode(username: string, password: string) {
     return this.loginApi
       .loginControllerLogin({
-        clientId: 'webapp',
-        clientSecret: '123456',
-        password: password,
-        username: username,
-      })
+        client_id: 'webapp',
+        client_secret: '123456',
+        password,
+        username,
+      } as any)
       .toPromise();
   }
 

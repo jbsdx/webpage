@@ -4,12 +4,14 @@
   "description": "webpage api+client",
   "main": "index.js",
   "scripts": {
-    "create:sdk": "sh bin/openapi.sh client/src/sdk/web-backend api.spec.json",
+    "start": "npm run rebuild:api",
+    "create:spec": "sh bin/openapi.sh client/src/sdk/web-backend api.spec.json",
+    "create:sdk": "rm -rf client/src/sdk/web-backend && node_modules/@openapitools/openapi-generator-cli/bin/openapi-generator generate --skip-validate-spec -i api.spec.json -g typescript-angular -o client/src/sdk/web-backend",
     "create:changelog": "node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s",
     "commit": "./node_modules/.bin/git-cz",
-    "start:api": "docker-compose up",
-    "build:api": "docker-compose build",
-    "stop:api": "docker-compose stop",
+    "start:api": "docker-compose -f docker-compose.backend.yml up",
+    "build:api": "docker-compose -f docker-compose.backend.yml build",
+    "stop:api": "docker-compose -f docker-compose.backend.yml stop",
     "rebuild:api": "npm run stop:api && npm run build:api && npm run start:api"
   },
   "repository": {
