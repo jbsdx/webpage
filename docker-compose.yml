@@ -4,7 +4,11 @@ services:
     image: traefik:v2.1
     container_name: "traefik"
     command:
-      #- "--log.level=DEBUG"
+      - "--log.level=ERROR"
+      - "--log.filePath=/etc/traefik/log/traefik.log"
+      - "--accesslog=true"
+      - "--accesslog.filepath=/etc/traefik/log/access.log"
+      - "--accesslog.bufferingsize=100"
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
@@ -13,40 +17,58 @@ services:
       #- "--certificatesresolvers.myresolver.acme.httpchallenge=true"
       #- "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
       #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      #- "--certificatesresolvers.myresolver.acme.email=dev@mydomain.com"
+      #- "--certificatesresolvers.myresolver.acme.email=dev@jbnz.de"
       #- "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-    environment:
-      TRAEFIK_LOG: "true"
-      TRAEFIK_LOG_FILEPATH: /etc/traefik/traefik.log
-      TRAEFIK_LOG_LEVEL: "ERROR"
+    labels:
+      - "traefik.enable=true"
+      #- "traefik.http.middlewares.reverse-proxy-secure.basicauth.users=jb:$$apr1$$psNio9k8$$4/zhtp8cKtegFBkT5L2OS1"
+      - "traefik.http.middlewares.test-auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/,test2:$$apr1$$d9hr9HBB$$4HxwgUir3HP4EsggP/QNo0"
+      - "traefik.http.routers.reverse-proxy.entrypoints=web"
+      - "traefik.http.routers.reverse-proxy.rule=Host(`traefik.localhost`)"
+      #- "traefik.http.middlewares.reverse-proxy-https-redirect.redirectscheme.scheme=https"
+      #- "traefik.http.routers.reverse-proxy.middlewares=reverse-proxy-https-redirect"
+      #- "traefik.http.routers.reverse-proxy-secure.entrypoints=websecure"
+      #- "traefik.http.routers.reverse-proxy-secure.rule=Host(`traefik.localhost`)"
+      #- "traefik.http.routers.reverse-proxy-secure.tls=true"
+      #- "traefik.http.routers.reverse-proxy-secure.tls.certresolver=myresolver"
+      #- "traefik.http.routers.reverse-proxy-secure.service=api@internal"
+      - "traefik.http.services.reverse-proxy.loadbalancer.server.port=8080"
     ports:
-      # The HTTP port
+      - "443:443"
       - "80:80"
       # The Web UI (enabled by --api.insecure=true)
       - "8080:8080"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./volumes/proxy/log/traefik.log:/etc/traefik/traefik.log:rw
+      - ./volumes/proxy/log:/etc/traefik/log:rw
       - ./volumes/proxy/letsencrypt:/letsencrypt
 
   api:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: api/Dockerfile
       args:
         env: local
     environment:
       SEED_DATABASE: enabled
+      DB_URL: mongodb://webpage-user:dkjJd8hbJdk81hCkf731@mongodb:27017/webpage
+      REDIS_URL: redis://redis:6379/0
       MONGO_HOST: mongodb
       MONGO_PORT: 27017
     labels:
-      - traefik.http.routers.api.rule=(Host(`localhost`) && Path(`/api`) || Host(`api.localhost`))
+      - traefik.enable=true
+      - traefik.http.routers.api.rule=Host(`api.localhost`)
       #- traefik.http.routers.api.tls=true
       #- traefik.http.routers.api.tls.certresolver=myresolver
       - traefik.http.routers.api.entrypoints=web
       - traefik.http.services.api-svc.loadbalancer.server.port=3000
-      - traefik.enable=true
+      #- traefik.http.middlewares.api-https-redirect.redirectscheme.scheme=https
+      #- traefik.http.routers.api.middlewares=api-https-redirect
+      #- traefik.http.routers.api-secure.entrypoints=websecure
+      #- traefik.http.routers.api-secure.rule=Host(`api.localhost`)
+      #- traefik.http.routers.api-secure.tls=true
+      #- traefik.http.routers.api-secure.tls.certresolver=myresolver
     depends_on:
       - redis
       - mongodb
@@ -57,16 +79,23 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile.frontend
+      dockerfile: client/Dockerfile
       args:
         env: local
     labels:
+      - traefik.enable=true
       - traefik.http.routers.frontend.rule=Host(`localhost`)
       #- traefik.http.routers.frontend.tls=true
       #- traefik.http.routers.frontend.tls.certresolver=myresolver
       - traefik.http.routers.frontend.entrypoints=web
       - traefik.http.services.frontend-svc.loadbalancer.server.port=3000
-      - traefik.enable=true
+      #- traefik.http.middlewares.frontend-https-redirect.redirectscheme.scheme=https
+      #- traefik.http.middlewares.frontend-https-redirect.redirectscheme.permanent=true
+      #- traefik.http.routers.frontend.middlewares=frontend-https-redirect
+      #- traefik.http.routers.frontend-secure.entrypoints=websecure
+      #- traefik.http.routers.frontend-secure.rule=Host(`localhost`)
+      #- traefik.http.routers.frontend-secure.tls=true
+      #- traefik.http.routers.frontend-secure.tls.certresolver=myresolver
 
   redis:
     image: redis
@@ -83,7 +112,7 @@ services:
       - ./api/src/migrations/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin-user
-      MONGO_INITDB_ROOT_PASSWORD: dk48d1JdkvnDK38zjnDK1jvkla
+      MONGO_INITDB_ROOT_PASSWORD: akl32kljkdg82lja892JDaf82Jv
       MONGO_INITDB_DATABASE: admin
     ports:
       - "27018:27017"
