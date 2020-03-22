@@ -7,3 +7,4 @@ volumes
 .vscode
 client/src/sdk
 proxy
+**/.env

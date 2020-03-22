@@ -3,13 +3,16 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: api/Dockerfile
       args:
         env: local
     environment:
       SEED_DATABASE: enabled
       MONGO_HOST: mongodb
       MONGO_PORT: 27017
+      DB_URL: mongodb://webpage-user:dkjJd8hbJdk81hCkf731@mongodb:27017/webpage
+      REDIS_URL: redis://redis:6379/0
+      PGP_FINGERPRINT: "68C8 A1DC 2304 CD40 7062 04CC 56A1 80A9 6E52 9E96"
     ports:
       - 3000:3000
     depends_on:

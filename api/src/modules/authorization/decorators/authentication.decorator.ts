@@ -6,8 +6,10 @@ import {
   Constructor,
   MetadataInspector,
 } from '@loopback/core';
-import {AUTHENTICATION_METADATA_KEY} from '@loopback/authentication';
-import {AuthMetadataProvider} from '@loopback/authentication/dist/providers/auth-metadata.provider';
+import {
+  AUTHENTICATION_METADATA_KEY,
+  AuthMetadataProvider,
+} from '@loopback/authentication';
 
 // the decorator function, every required param has its own default
 // so we can supply empty param when calling this decorartor.

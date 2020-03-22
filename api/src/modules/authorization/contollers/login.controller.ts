@@ -6,7 +6,7 @@ import {compare} from 'bcryptjs';
 import {STATUS_CODE} from '../../../controllers/status-codes.enum';
 import {CONTENT_TYPE} from '../../../controllers/content-type.constant';
 import {LoginRequest} from '../models/login-request.dto';
-import {AuthClientRepository} from '../../../repositories/auth-client.repository';
+import {AuthClientRepository} from '../../../repositories/user/auth-client.repository';
 import {
   Credentials,
   ClientCredentials,
@@ -16,7 +16,7 @@ import {
 import {TokenResponse} from '../models/token-response.dto';
 import {AuthUser} from '../models/auth-user.model';
 import * as crypto from 'crypto';
-import {RefreshTokenRepository} from '../../../repositories/refresh-token.repository';
+import {RefreshTokenRepository} from '../../../repositories/user/refresh-token.repository';
 import {secured} from '../decorators';
 import {AuthTokenRequest} from '../models/auth-token-request.dto';
 import {verify} from 'jsonwebtoken';

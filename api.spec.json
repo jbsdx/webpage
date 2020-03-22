@@ -267,6 +267,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "title": "loopback.Count",
                   "properties": {
                     "count": {
                       "type": "number"
@@ -286,10 +287,14 @@
           {
             "name": "where",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "type": "object"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Role.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
             }
           }
         ],
@@ -465,7 +470,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RoleExcluding[id]"
+                "$ref": "#/components/schemas/RoleExcluding_id_"
               }
             }
           }
@@ -485,6 +490,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "title": "loopback.Count",
                   "properties": {
                     "count": {
                       "type": "number"
@@ -504,10 +510,14 @@
           {
             "name": "where",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "type": "object"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Role.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
             }
           }
         ],
@@ -552,54 +562,66 @@
           {
             "name": "filter",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "where": {
-                  "type": "object"
-                },
-                "fields": {
+            "content": {
+              "application/json": {
+                "schema": {
                   "type": "object",
+                  "title": "Role.Filter",
                   "properties": {
-                    "deleted": {
-                      "type": "boolean"
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
                     },
-                    "createdOn": {
-                      "type": "boolean"
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
                     },
-                    "modifiedOn": {
-                      "type": "boolean"
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
                     },
-                    "id": {
-                      "type": "boolean"
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     },
-                    "description": {
-                      "type": "boolean"
+                    "where": {
+                      "title": "Role.WhereFilter",
+                      "type": "object",
+                      "additionalProperties": true
                     },
-                    "name": {
-                      "type": "boolean"
+                    "fields": {
+                      "title": "Role.Fields",
+                      "type": "object",
+                      "properties": {
+                        "deleted": {
+                          "type": "boolean"
+                        },
+                        "createdOn": {
+                          "type": "boolean"
+                        },
+                        "modifiedOn": {
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "type": "boolean"
+                        },
+                        "description": {
+                          "type": "boolean"
+                        },
+                        "name": {
+                          "type": "boolean"
+                        },
+                        "nameWeb": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": true
                     }
-                  }
-                },
-                "offset": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "limit": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "skip": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "order": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
             }
@@ -622,6 +644,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "title": "loopback.Count",
                   "properties": {
                     "count": {
                       "type": "number"
@@ -641,10 +664,14 @@
           {
             "name": "where",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "type": "object"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "UserRole.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
             }
           }
         ],
@@ -820,7 +847,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRoleExcluding[id]"
+                "$ref": "#/components/schemas/UserRoleExcluding_id_"
               }
             }
           }
@@ -840,6 +867,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "title": "loopback.Count",
                   "properties": {
                     "count": {
                       "type": "number"
@@ -859,10 +887,14 @@
           {
             "name": "where",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "type": "object"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "UserRole.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
             }
           }
         ],
@@ -907,94 +939,110 @@
           {
             "name": "filter",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "where": {
-                  "type": "object"
-                },
-                "fields": {
+            "content": {
+              "application/json": {
+                "schema": {
                   "type": "object",
+                  "title": "UserRole.Filter",
                   "properties": {
-                    "deleted": {
-                      "type": "boolean"
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
                     },
-                    "createdOn": {
-                      "type": "boolean"
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
                     },
-                    "modifiedOn": {
-                      "type": "boolean"
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
                     },
-                    "id": {
-                      "type": "boolean"
-                    },
-                    "userId": {
-                      "type": "boolean"
-                    },
-                    "roleId": {
-                      "type": "boolean"
-                    }
-                  }
-                },
-                "offset": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "limit": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "skip": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "order": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "include": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "relation": {
+                    "order": {
+                      "type": "array",
+                      "items": {
                         "type": "string"
+                      }
+                    },
+                    "where": {
+                      "title": "UserRole.WhereFilter",
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "fields": {
+                      "title": "UserRole.Fields",
+                      "type": "object",
+                      "properties": {
+                        "deleted": {
+                          "type": "boolean"
+                        },
+                        "createdOn": {
+                          "type": "boolean"
+                        },
+                        "modifiedOn": {
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "type": "boolean"
+                        },
+                        "userId": {
+                          "type": "boolean"
+                        },
+                        "roleId": {
+                          "type": "boolean"
+                        }
                       },
-                      "scope": {
+                      "additionalProperties": true
+                    },
+                    "include": {
+                      "title": "UserRole.IncludeFilter",
+                      "type": "array",
+                      "items": {
+                        "title": "UserRole.IncludeFilter.Items",
+                        "type": "object",
                         "properties": {
-                          "where": {
-                            "type": "object"
+                          "relation": {
+                            "type": "string"
                           },
-                          "fields": {
-                            "type": "object",
-                            "properties": {}
-                          },
-                          "offset": {
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "limit": {
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "skip": {
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "order": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
+                          "scope": {
+                            "properties": {
+                              "offset": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "limit": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "example": 100
+                              },
+                              "skip": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "order": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "where": {
+                                "type": "object",
+                                "additionalProperties": true
+                              },
+                              "fields": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": true
+                              }
+                            },
+                            "additionalProperties": false,
+                            "title": "UserRole.ScopeFilter"
                           }
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
             }
@@ -1017,6 +1065,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "title": "loopback.Count",
                   "properties": {
                     "count": {
                       "type": "number"
@@ -1036,10 +1085,14 @@
           {
             "name": "where",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "type": "object"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "User.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
             }
           }
         ],
@@ -1215,7 +1268,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserExcluding[id]"
+                "$ref": "#/components/schemas/UserExcluding_id_"
               }
             }
           }
@@ -1235,6 +1288,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "title": "loopback.Count",
                   "properties": {
                     "count": {
                       "type": "number"
@@ -1254,10 +1308,14 @@
           {
             "name": "where",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "type": "object"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "User.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
             }
           }
         ],
@@ -1302,118 +1360,156 @@
           {
             "name": "filter",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "where": {
-                  "type": "object"
-                },
-                "fields": {
+            "content": {
+              "application/json": {
+                "schema": {
                   "type": "object",
+                  "title": "User.Filter",
                   "properties": {
-                    "deleted": {
-                      "type": "boolean"
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
                     },
-                    "createdOn": {
-                      "type": "boolean"
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
                     },
-                    "modifiedOn": {
-                      "type": "boolean"
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
                     },
-                    "createdBy": {
-                      "type": "boolean"
-                    },
-                    "modifiedBy": {
-                      "type": "boolean"
-                    },
-                    "id": {
-                      "type": "boolean"
-                    },
-                    "email": {
-                      "type": "boolean"
-                    },
-                    "firstName": {
-                      "type": "boolean"
-                    },
-                    "lastName": {
-                      "type": "boolean"
-                    },
-                    "lastLogin": {
-                      "type": "boolean"
-                    },
-                    "username": {
-                      "type": "boolean"
-                    },
-                    "password": {
-                      "type": "boolean"
-                    }
-                  }
-                },
-                "offset": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "limit": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "skip": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "order": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "include": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "relation": {
+                    "order": {
+                      "type": "array",
+                      "items": {
                         "type": "string"
+                      }
+                    },
+                    "where": {
+                      "title": "User.WhereFilter",
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "fields": {
+                      "title": "User.Fields",
+                      "type": "object",
+                      "properties": {
+                        "deleted": {
+                          "type": "boolean"
+                        },
+                        "createdOn": {
+                          "type": "boolean"
+                        },
+                        "modifiedOn": {
+                          "type": "boolean"
+                        },
+                        "createdBy": {
+                          "type": "boolean"
+                        },
+                        "modifiedBy": {
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "type": "boolean"
+                        },
+                        "email": {
+                          "type": "boolean"
+                        },
+                        "firstName": {
+                          "type": "boolean"
+                        },
+                        "lastName": {
+                          "type": "boolean"
+                        },
+                        "lastLogin": {
+                          "type": "boolean"
+                        },
+                        "username": {
+                          "type": "boolean"
+                        },
+                        "password": {
+                          "type": "boolean"
+                        }
                       },
-                      "scope": {
+                      "additionalProperties": true
+                    },
+                    "include": {
+                      "title": "User.IncludeFilter",
+                      "type": "array",
+                      "items": {
+                        "title": "User.IncludeFilter.Items",
+                        "type": "object",
                         "properties": {
-                          "where": {
-                            "type": "object"
+                          "relation": {
+                            "type": "string"
                           },
-                          "fields": {
-                            "type": "object",
-                            "properties": {}
-                          },
-                          "offset": {
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "limit": {
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "skip": {
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "order": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
+                          "scope": {
+                            "properties": {
+                              "offset": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "limit": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "example": 100
+                              },
+                              "skip": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "order": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "where": {
+                                "type": "object",
+                                "additionalProperties": true
+                              },
+                              "fields": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": true
+                              }
+                            },
+                            "additionalProperties": false,
+                            "title": "User.ScopeFilter"
                           }
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
             }
           }
         ],
         "operationId": "UserController.find"
+      }
+    },
+    "/whoami": {
+      "get": {
+        "x-controller-name": "WhoamiController",
+        "x-operation-name": "whoami",
+        "tags": [
+          "WhoamiController"
+        ],
+        "responses": {
+          "200": {
+            "description": "PGP keys",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGP"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "WhoamiController.whoami"
       }
     }
   },
@@ -1449,14 +1545,19 @@
           },
           "name": {
             "type": "string"
+          },
+          "nameWeb": {
+            "type": "string"
           }
         },
         "required": [
           "name"
-        ]
+        ],
+        "additionalProperties": true
       },
-      "RoleExcluding[id]": {
-        "title": "RoleExcluding[id]",
+      "RoleExcluding_id_": {
+        "title": "RoleExcluding_id_",
+        "description": "(Schema options: { exclude: [ 'id' ] })",
         "properties": {
           "deleted": {
             "type": "boolean"
@@ -1474,14 +1575,19 @@
           },
           "name": {
             "type": "string"
+          },
+          "nameWeb": {
+            "type": "string"
           }
         },
         "required": [
           "name"
-        ]
+        ],
+        "additionalProperties": true
       },
       "RolePartial": {
         "title": "RolePartial",
+        "description": "(Schema options: { partial: true })",
         "properties": {
           "deleted": {
             "type": "boolean"
@@ -1502,8 +1608,12 @@
           },
           "name": {
             "type": "string"
+          },
+          "nameWeb": {
+            "type": "string"
           }
-        }
+        },
+        "additionalProperties": true
       },
       "UserRole": {
         "title": "UserRole",
@@ -1528,10 +1638,12 @@
           "roleId": {
             "type": "string"
           }
-        }
+        },
+        "additionalProperties": true
       },
-      "UserRoleExcluding[id]": {
-        "title": "UserRoleExcluding[id]",
+      "UserRoleExcluding_id_": {
+        "title": "UserRoleExcluding_id_",
+        "description": "(Schema options: { exclude: [ 'id' ] })",
         "properties": {
           "deleted": {
             "type": "boolean"
@@ -1550,10 +1662,12 @@
           "roleId": {
             "type": "string"
           }
-        }
+        },
+        "additionalProperties": true
       },
       "UserRolePartial": {
         "title": "UserRolePartial",
+        "description": "(Schema options: { partial: true })",
         "properties": {
           "deleted": {
             "type": "boolean"
@@ -1575,7 +1689,8 @@
           "roleId": {
             "type": "string"
           }
-        }
+        },
+        "additionalProperties": true
       },
       "User": {
         "title": "User",
@@ -1624,12 +1739,13 @@
           "email",
           "firstName",
           "lastName",
-          "username",
-          "password"
-        ]
+          "username"
+        ],
+        "additionalProperties": true
       },
-      "UserExcluding[id]": {
-        "title": "UserExcluding[id]",
+      "UserExcluding_id_": {
+        "title": "UserExcluding_id_",
+        "description": "(Schema options: { exclude: [ 'id' ] })",
         "properties": {
           "deleted": {
             "type": "boolean"
@@ -1672,12 +1788,13 @@
           "email",
           "firstName",
           "lastName",
-          "username",
-          "password"
-        ]
+          "username"
+        ],
+        "additionalProperties": true
       },
       "UserPartial": {
         "title": "UserPartial",
+        "description": "(Schema options: { partial: true })",
         "properties": {
           "deleted": {
             "type": "boolean"
@@ -1718,7 +1835,24 @@
           "password": {
             "type": "string"
           }
-        }
+        },
+        "additionalProperties": true
+      },
+      "PGP": {
+        "title": "PGP",
+        "properties": {
+          "fingerprint": {
+            "type": "string"
+          },
+          "xpub": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "fingerprint",
+          "xpub"
+        ],
+        "additionalProperties": true
       },
       "AuthTokenRequest": {
         "title": "AuthTokenRequest",
@@ -1737,7 +1871,8 @@
           "code",
           "clientId",
           "username"
-        ]
+        ],
+        "additionalProperties": false
       },
       "LoginRequest": {
         "title": "LoginRequest",
@@ -1760,7 +1895,8 @@
           "client_secret",
           "username",
           "password"
-        ]
+        ],
+        "additionalProperties": false
       },
       "TokenResponse": {
         "title": "TokenResponse",
@@ -1775,7 +1911,8 @@
         "required": [
           "accessToken",
           "refreshToken"
-        ]
+        ],
+        "additionalProperties": false
       },
       "AuthRefreshTokenRequest": {
         "title": "AuthRefreshTokenRequest",
@@ -1786,7 +1923,8 @@
         },
         "required": [
           "refreshToken"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },

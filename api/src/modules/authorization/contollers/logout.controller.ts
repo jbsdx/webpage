@@ -4,7 +4,7 @@ import {HttpErrors, param, post, Request, RestBindings} from '@loopback/rest';
 
 import {secured} from '../decorators';
 import {SecuredType} from '../types';
-import {RevokedTokenRepository} from '../../../repositories/revoked-token.repository';
+import {RevokedTokenRepository} from '../../../repositories/user/revoked-token.repository';
 import {STATUS_CODE} from '../../../controllers/status-codes.enum';
 
 export class LogoutController {

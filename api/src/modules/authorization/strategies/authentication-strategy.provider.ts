@@ -14,7 +14,7 @@ import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
 import {User} from '../../../models';
 import {HttpErrors} from '@loopback/rest';
 import {StrategyAdapter} from '@loopback/authentication-passport';
-import {RevokedTokenRepository} from '../../../repositories/revoked-token.repository';
+import {RevokedTokenRepository} from '../../../repositories/user/revoked-token.repository';
 
 export const JWT_STRATEGY_NAME = 'jwt';
 

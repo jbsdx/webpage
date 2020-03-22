@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  LoginControllerService,
-  PingControllerService,
-} from 'src/sdk/web-backend';
+import {Store} from './modules/core/store/store.service';
+import {BehaviorSubject} from 'rxjs';
+import {PGP} from 'src/sdk/web-backend';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +9,13 @@ import {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  year = new Date().getFullYear();
+  pgp: BehaviorSubject<PGP>;
 
-  constructor(
-    readonly pingApi: PingControllerService,
-    readonly loginApi: LoginControllerService,
-  ) {}
+  constructor(private storeService: Store) {}
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    // init app data
+    this.storeService.initApp();
+    this.pgp = this.storeService.pgp;
+  }
 }

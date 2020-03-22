@@ -1,10 +1,7 @@
 FROM node:10-slim
 
-RUN mkdir -p /usr/share/man/man1
-
 RUN apt update && \
-  apt install -y netcat && \
-  apt install -y default-jre
+  apt install -y netcat
 
 # Environment
 ARG env=local
@@ -24,7 +21,7 @@ COPY --chown=node ./bin/. ./bin
 RUN npm install
 
 # Compile source files
-RUN npm run build
+RUN npm run clean && npm run build
 
 # Bind to all network interfaces so that it can be mapped to the host OS
 ENV HOST=0.0.0.0 PORT=3000
