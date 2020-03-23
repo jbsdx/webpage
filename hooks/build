@@ -1,2 +1,4 @@
 #!/bin/sh
-docker build --build-arg env=$ENV -t $IMAGE_NAME .
+echo "prehook: $DOCKERFILE"
+
+docker build --file $DOCKERFILE --build-arg env=$ENV -t $IMAGE_NAME .
