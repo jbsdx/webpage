@@ -3,7 +3,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: api/Dockerfile
+      dockerfile: backend.Dockerfile
       args:
         env: local
     environment:
