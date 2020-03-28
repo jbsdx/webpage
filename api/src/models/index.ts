@@ -1,4 +1,4 @@
-export * from './identity/pgp.model';
+export * from './whoami/whoami.model';
 export * from './user/user.model';
 export * from './user/user-credentials.model';
 export * from './base-entity.model';
