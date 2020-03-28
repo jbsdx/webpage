@@ -1,23 +1,17 @@
 import {Injectable} from '@angular/core';
-import {
-  LoginControllerService,
-  PingControllerService,
-} from 'src/sdk/web-backend';
+import {LoginControllerService} from 'src/sdk/web-backend';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(
-    private readonly loginApi: LoginControllerService,
-    private pingApi: PingControllerService,
-  ) {}
+  constructor(private readonly loginApi: LoginControllerService) {}
 
   /**
    * Login with credentials
    *
-   * @param username
-   * @param password
+   * @param username Username
+   * @param password Password
    *
    */
   async login(username: string, password: string) {
@@ -45,7 +39,7 @@ export class AuthenticationService {
       .loginControllerToken({
         clientId: 'webapp',
         code: authCode,
-        username: username,
+        username,
       })
       .toPromise();
   }

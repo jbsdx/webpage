@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Store} from 'src/app/modules/core/store/store.service';
-import {BehaviorSubject, Subscription} from 'rxjs';
-import {PGP} from 'src/sdk/web-backend';
+import {Subscription} from 'rxjs';
+import {WhoAmI} from 'src/sdk/web-backend';
 
 @Component({
   selector: 'app-pgp-view',
@@ -9,18 +9,18 @@ import {PGP} from 'src/sdk/web-backend';
   styleUrls: ['./pgp-view.component.scss'],
 })
 export class PGPViewComponent implements OnInit, OnDestroy {
-  pgp: PGP;
-  pgpSubscription: Subscription;
+  whoAmI: WhoAmI;
+  whoAmISubscription: Subscription;
 
   constructor(private store: Store) {}
 
   ngOnInit() {
-    this.pgpSubscription = this.store.pgp.subscribe(pgp => {
-      this.pgp = pgp;
+    this.whoAmISubscription = this.store.whoAmI.subscribe(whoAmI => {
+      this.whoAmI = whoAmI;
     });
   }
 
   ngOnDestroy() {
-    this.pgpSubscription.unsubscribe();
+    this.whoAmISubscription.unsubscribe();
   }
 }

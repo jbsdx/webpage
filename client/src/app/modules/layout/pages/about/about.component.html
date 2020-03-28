@@ -1,0 +1,15 @@
+<div class="about-container">
+  <div class="about-image card">
+    <img [src]="whoAmI?.imageUrl" class="section media" />
+  </div>
+
+  <div class="about-details">
+    <div class="detail" *ngFor="let label of identityLabels">
+      <app-identity-label [identityLabel]="label"></app-identity-label>
+    </div>
+  </div>
+
+  <div class="about-outlet">
+    <router-outlet></router-outlet>
+  </div>
+</div>

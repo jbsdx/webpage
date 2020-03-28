@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
-import {PGPLabelComponent, PGPViewComponent} from './components';
+import {PGPViewComponent, IdentityLabelComponent} from './components';
 import {ApiModule} from 'src/sdk/web-backend';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {IdentityRoutingModule} from './identity-routing.module';
 
-const COMPONENTS = [PGPLabelComponent, PGPViewComponent];
+const COMPONENTS = [IdentityLabelComponent, PGPViewComponent];
 
 @NgModule({
   declarations: [...COMPONENTS],

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {WhoamiControllerService, PGP} from 'src/sdk/web-backend';
+import {WhoamiControllerService, WhoAmI} from 'src/sdk/web-backend';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 export class IdentityService {
   constructor(private whoamiApi: WhoamiControllerService) {}
 
-  getPGPKeys(): Observable<PGP> {
+  getWhoAmIData(): Observable<WhoAmI> {
     return this.whoamiApi.whoamiControllerWhoami();
   }
 }

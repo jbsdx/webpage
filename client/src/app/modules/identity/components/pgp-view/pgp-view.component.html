@@ -1,5 +1,5 @@
 <div class="view">
-  <code># import my keys with curl + gpg </code>
+  <code># import the key with curl + gpg </code>
   <pre>curl https://keybase.io/jbsdx/pgp_keys.asc | gpg --import</pre>
 
   <div>
@@ -13,7 +13,7 @@
     <label for="modal-control" class="modal-close"></label>
     <h3 class="section">PGP Public Key</h3>
     <div class="section ">
-      <pre [innerHtml]="pgp?.xpub"></pre>
+      <pre [innerHtml]="whoAmI?.xpub"></pre>
     </div>
   </div>
 </div>

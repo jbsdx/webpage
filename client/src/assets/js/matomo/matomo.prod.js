@@ -1,8 +1,9 @@
 var _paq = window._paq || [];
+/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
 (function() {
-  var u = '//localhost:8080/';
+  var u = '//matomo.jbnz.de/';
   _paq.push(['setTrackerUrl', u + 'matomo.php']);
   _paq.push(['setSiteId', '1']);
   var d = document,

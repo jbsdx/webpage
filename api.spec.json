@@ -1491,6 +1491,33 @@
       }
     },
     "/whoami": {
+      "put": {
+        "x-controller-name": "WhoamiController",
+        "x-operation-name": "replace",
+        "tags": [
+          "WhoamiController"
+        ],
+        "responses": {
+          "204": {
+            "description": "WhoAmI PUT success"
+          }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WhoAmI"
+              }
+            }
+          }
+        },
+        "operationId": "WhoamiController.replace"
+      },
       "get": {
         "x-controller-name": "WhoamiController",
         "x-operation-name": "whoami",
@@ -1499,11 +1526,11 @@
         ],
         "responses": {
           "200": {
-            "description": "PGP keys",
+            "description": "WhoAmI Identity",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PGP"
+                  "$ref": "#/components/schemas/WhoAmI"
                 }
               }
             }
@@ -1838,21 +1865,41 @@
         },
         "additionalProperties": true
       },
-      "PGP": {
-        "title": "PGP",
+      "WhoAmI": {
+        "title": "WhoAmI",
         "properties": {
           "fingerprint": {
             "type": "string"
           },
           "xpub": {
             "type": "string"
+          },
+          "btc": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "githubUrl": {
+            "type": "string"
+          },
+          "keybaseUrl": {
+            "type": "string"
           }
         },
         "required": [
           "fingerprint",
-          "xpub"
+          "xpub",
+          "btc",
+          "email",
+          "imageUrl",
+          "githubUrl",
+          "keybaseUrl"
         ],
-        "additionalProperties": true
+        "additionalProperties": false
       },
       "AuthTokenRequest": {
         "title": "AuthTokenRequest",

@@ -1,7 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import * as moment from 'moment';
-import {PGP} from 'src/sdk/web-backend';
-import {Store} from 'src/app/modules/core/store/store.service';
+import {WhoAmI} from 'src/sdk/web-backend';
 
 const CREATION_DATE = moment('2019-08-05');
 
@@ -11,7 +10,7 @@ const CREATION_DATE = moment('2019-08-05');
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-  @Input() pgp: PGP;
+  @Input() whoAmI: WhoAmI;
 
   footerDateString: string;
 

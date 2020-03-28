@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from './modules/core/store/store.service';
 import {BehaviorSubject} from 'rxjs';
-import {PGP} from 'src/sdk/web-backend';
+import {WhoAmI} from 'src/sdk/web-backend';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +9,12 @@ import {PGP} from 'src/sdk/web-backend';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  pgp: BehaviorSubject<PGP>;
+  whoAmI: BehaviorSubject<WhoAmI> = this.storeService.whoAmI;
 
   constructor(private storeService: Store) {}
 
   async ngOnInit() {
     // init app data
     this.storeService.initApp();
-    this.pgp = this.storeService.pgp;
   }
 }

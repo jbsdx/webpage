@@ -1,9 +1,5 @@
-<header class="sticky">
-  <app-header></app-header>
-</header>
-
 <router-outlet></router-outlet>
 
-<footer class="sticky">
-  <app-footer [pgp]="pgp | async"></app-footer>
+<footer>
+  <app-footer [whoAmI]="whoAmI | async"></app-footer>
 </footer>

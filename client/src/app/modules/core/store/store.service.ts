@@ -1,22 +1,22 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {PGP} from 'src/sdk/web-backend';
 import {IdentityService} from '../../identity/services';
+import {WhoAmI} from 'src/sdk/web-backend';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Store {
-  pgp: BehaviorSubject<PGP> = new BehaviorSubject(null);
+  whoAmI: BehaviorSubject<WhoAmI> = new BehaviorSubject(null);
 
   constructor(private identityService: IdentityService) {}
 
   async initApp() {
-    this.loadPGP();
+    this.loadWhoAmIData();
   }
 
-  async loadPGP() {
-    const pgp = await this.identityService.getPGPKeys().toPromise();
-    this.pgp.next(pgp);
+  async loadWhoAmIData() {
+    const whoAmI = await this.identityService.getWhoAmIData().toPromise();
+    this.whoAmI.next(whoAmI);
   }
 }
