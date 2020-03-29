@@ -1,12 +1,13 @@
 .label {
-  &.clickable {
-    cursor: pointer;
-  }
-  .with-icon {
-    padding-left: 0.5rem;
-  }
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  grid-column-gap: 0.5rem;
+  align-items: center;
+
   .value {
+    &.clickable {
+      cursor: pointer;
+    }
     font-family: monospace;
-    font-size: 70%;
   }
 }

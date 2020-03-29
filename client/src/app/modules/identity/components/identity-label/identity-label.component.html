@@ -1,15 +1,15 @@
-<span
-  (click)="labelClick()"
-  class="label"
-  [class.clickable]="identityLabel.link ? true : false"
-  [class.tooltip]="identityLabel.tooltip ? true : false"
-  [attr.aria-label]="identityLabel.tooltip ? identityLabel.tooltip : null"
->
+<div class="label">
   <fa-icon [icon]="identityLabel.icon"></fa-icon>
 
-  <span
-    class="value"
-    [class.with-icon]="identityLabel.icon ? true : false"
-    [innerHtml]="identityLabel.value"
-  ></span>
-</span>
+  <div>
+    <span
+      class="value"
+      (click)="labelClick()"
+      [class.clickable]="identityLabel.link ? true : false"
+      [class.tooltip]="identityLabel.tooltip ? true : false"
+      [attr.aria-label]="identityLabel.tooltip ? identityLabel.tooltip : null"
+      [class.with-icon]="identityLabel.icon ? true : false"
+      [innerHtml]="identityLabel.value"
+    ></span>
+  </div>
+</div>
