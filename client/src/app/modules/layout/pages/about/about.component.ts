@@ -37,7 +37,6 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
 
   private generateIdentityLabels(whoAmI: WhoAmI) {
-    const fingerprint = '68C8 A1DC 2304 CD40 7062 04CC 56A1 80A9 6E52 9E96';
     this.identityLabels = [
       {
         key: 'keybase',
@@ -69,8 +68,10 @@ export class AboutComponent implements OnInit, OnDestroy {
       },
       {
         key: 'pgp',
-        //value: whoAmI.fingerprint.split(' '),
-        value: fingerprint.substr(0, 24) + '<br>' + fingerprint.substr(25),
+        value:
+          whoAmI.fingerprint.substr(0, 24) +
+          '<br>' +
+          whoAmI.fingerprint.substr(25),
         icon: faKey,
         tooltip: 'PGP Fingerprint',
         link: '/about/pgp',
