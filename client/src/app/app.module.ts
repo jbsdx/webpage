@@ -10,16 +10,7 @@ import {IdentityModule} from './modules/identity/identity.module';
 import {LayoutModule} from './modules/layout/layout.module';
 import {AuthenticationModule} from './modules/authentication/authentication.module';
 
-import {
-  FontAwesomeModule,
-  FaIconLibrary,
-} from '@fortawesome/angular-fontawesome';
-import {
-  faBtc,
-  faBitcoin,
-  faKeybase,
-  faGithub,
-} from '@fortawesome/free-brands-svg-icons';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 const APP_MODULES = [IdentityModule, LayoutModule];
 
@@ -42,9 +33,4 @@ const APP_MODULES = [IdentityModule, LayoutModule];
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-  constructor(library: FaIconLibrary) {
-    // Add multiple icons to the library
-    library.addIcons(faKeybase, faGithub, faBtc);
-  }
-}
+export class AppModule {}

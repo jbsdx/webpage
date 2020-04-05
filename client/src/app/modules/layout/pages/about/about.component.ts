@@ -1,13 +1,9 @@
-import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {WhoAmI} from 'src/sdk/web-backend';
 import {Subscription} from 'rxjs';
 import {Store} from 'src/app/modules/core/store/store.service';
 import {faKey, faAt} from '@fortawesome/free-solid-svg-icons';
-import {
-  faBitcoin,
-  faGithub,
-  faKeybase,
-} from '@fortawesome/free-brands-svg-icons';
+import {faBtc, faGithub, faKeybase} from '@fortawesome/free-brands-svg-icons';
 import {IdentityLabel} from 'src/app/modules/identity/models';
 
 @Component({
@@ -63,7 +59,7 @@ export class AboutComponent implements OnInit, OnDestroy {
       {
         key: 'btc',
         value: whoAmI.btc,
-        icon: faBitcoin,
+        icon: faBtc,
         tooltip: 'BTC Address',
       },
       {

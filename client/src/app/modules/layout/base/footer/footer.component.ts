@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import * as moment from 'moment';
 import {WhoAmI} from 'src/sdk/web-backend';
-
+import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 const CREATION_DATE = moment('2019-08-05');
 
 @Component({

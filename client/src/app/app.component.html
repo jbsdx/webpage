@@ -3,3 +3,13 @@
 <footer>
   <app-footer [whoAmI]="whoAmI | async"></app-footer>
 </footer>
+
+<div class="opt-out-dialog" *ngIf="displayOptInDialog">
+  <div class="close-area" (click)="toggleOptInDialog()">
+    Close window <fa-icon [icon]="faWindowClose"></fa-icon>
+  </div>
+
+  <iframe
+    src="https://matomo.jbnz.de/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=1f1f1f&fontColor=ffffff&fontSize=14px&fontFamily=Arial"
+  ></iframe>
+</div>
